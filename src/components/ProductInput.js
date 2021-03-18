@@ -6,12 +6,14 @@ import { useInvoice } from "../context/invoiceContext";
 
 const ProductInput = (props) => {
   const { rowIndex } = props;
+  const [productIndex, setProductIndex] = React.useState(0);
   const { state: products } = useProduct();
   const { dispatch } = useInvoice();
 
   const handleChange = (e) => {
     const { value } = e.target;
     const data = { product: products[value], rowIndex };
+    setProductIndex(value);
     dispatch({ type: "set_product", data });
   };
 
@@ -19,6 +21,7 @@ const ProductInput = (props) => {
     <Select
       variant="outlined"
       inputProps={{ className: "order__form__table__product__select" }}
+      value={productIndex}
       onChange={handleChange}
     >
       {products.map((product, index) => (
