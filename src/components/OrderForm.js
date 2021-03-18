@@ -16,7 +16,7 @@ const OrderForm = () => {
 
   const handleAddButton = (e) => {
     e.preventDefault();
-    dispatch({ type: "add_product" });
+    dispatch({ type: "add_product", products });
   };
 
   return (
@@ -29,7 +29,7 @@ const OrderForm = () => {
           ))}
           {invoice.calculate && (
             <OrderTotals
-              products={products}
+              invoice={invoice.products}
               discountRate={contractor.discount}
             />
           )}

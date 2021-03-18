@@ -19,14 +19,7 @@ const reducer = (draft, action) => {
     case "close":
       return draft;
     case "add_product":
-      draft.products.push({
-        index: 0,
-        id: "",
-        name: "",
-        sku: "",
-        price: 0,
-        quantity: 1,
-      });
+      draft.products.push({ ...action.products[0], quantity: 1 });
       return draft;
     case "set_product":
       console.log(action.data.product);
