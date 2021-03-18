@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
@@ -25,6 +26,12 @@ const ContractorInput = (props) => {
       </Grid>
     </form>
   );
+};
+
+ContractorInput.propTypes = {
+  payload: PropTypes.shape({ id: PropTypes.string }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default ContractorInput;

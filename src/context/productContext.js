@@ -1,7 +1,7 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
 
-const initialState = [{ id: null, name: "", price: null, quantity: 0 }];
+const initialState = [];
 
 const ProductContext = React.createContext({
   state: initialState,
@@ -10,12 +10,12 @@ const ProductContext = React.createContext({
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case "reset":
-      return initialState;
-    case "increment":
-      return void draft.count++;
-    case "decrement":
-      return void draft.count--;
+    case "set_products":
+      return draft.concat(action.data);
+    case "sort_products":
+      return draft.sort((a, b) => {
+        return a.sku.localeCompare(b.sku);
+      });
     default:
   }
 };

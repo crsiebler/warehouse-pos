@@ -8,7 +8,7 @@ import ContractorDisplay from "./ContractorDisplay";
 
 const ContractorSection = () => {
   const [payload, setPayload] = React.useState({ id: "" });
-  const { state, dispatch } = useContractor();
+  const { state: contractor, dispatch } = useContractor();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -34,7 +34,7 @@ const ContractorSection = () => {
           onChange={handleChange}
           payload={payload}
         />
-        <ContractorDisplay contractor={state} />
+        <ContractorDisplay contractor={contractor} />
       </Container>
     </Paper>
   );

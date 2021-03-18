@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 
@@ -25,6 +26,13 @@ const ContractorDisplay = (props) => {
       </Grid>
     </Grid>
   );
+};
+
+ContractorDisplay.propTypes = {
+  contract: PropTypes.shape({
+    name: PropTypes.string,
+    company: PropTypes.string,
+  }),
 };
 
 export default ContractorDisplay;
