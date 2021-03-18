@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Warehouse POS",
+  "name": "Warehouse Point-of-Sale",
   "icons": [
     {
       "src": "favicon.ico",

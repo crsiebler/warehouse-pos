@@ -1,14 +1,20 @@
 {
-  "name": "demo-amex",
+  "name": "warehouse-pos",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.21.1",
+    "immer": "^8.0.2",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "use-immer": "^0.4.2",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
