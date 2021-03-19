@@ -1,10 +1,10 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { useInvoice } from "../context/invoiceContext";
+import { useDisplay } from "../context/displayContext";
 
 const OrderControls = () => {
-  const { dispatch } = useInvoice();
+  const { dispatch } = useDisplay();
 
   const handleCalculate = (e) => {
     e.preventDefault();

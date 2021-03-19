@@ -16,6 +16,7 @@ const OrderSection = () => {
         dispatch({ type: "sort_products", data });
       })
       .catch((error) => {
+        // TODO error handling on getting products
         console.log(`Error: ${JSON.stringify(error)}`);
       });
   }, [dispatch]);

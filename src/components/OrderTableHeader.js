@@ -11,7 +11,7 @@ const OrderTableHeader = (props) => {
   return (
     <TableHead>
       <TableRow>
-        <TableCell>
+        <TableCell align="center">
           <Fab
             size="small"
             color="primary"

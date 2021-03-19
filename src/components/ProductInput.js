@@ -1,20 +1,23 @@
 import React from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useDisplay } from "../context/displayContext";
 import { useProduct } from "../context/productContext";
 import { useInvoice } from "../context/invoiceContext";
 
 const ProductInput = (props) => {
   const { rowIndex } = props;
+  const { dispatch: dispatchDisplay } = useDisplay();
   const [productIndex, setProductIndex] = React.useState(0);
   const { state: products } = useProduct();
-  const { dispatch } = useInvoice();
+  const { dispatch: dispatchInvoice } = useInvoice();
 
   const handleChange = (e) => {
     const { value } = e.target;
     const data = { product: products[value], rowIndex };
     setProductIndex(value);
-    dispatch({ type: "set_product", data });
+    dispatchDisplay({ type: "hide_total" });
+    dispatchInvoice({ type: "set_product", data });
   };
 
   return (

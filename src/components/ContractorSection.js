@@ -2,13 +2,15 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import { useContractor } from "../context/contractorContext";
+import { useDisplay } from "../context/displayContext";
 import { getContractor } from "../api/contractorApi";
 import ContractorInput from "./ContactorInput";
 import ContractorDisplay from "./ContractorDisplay";
 
 const ContractorSection = () => {
   const [payload, setPayload] = React.useState({ id: "" });
-  const { state: contractor, dispatch } = useContractor();
+  const { state: contractor, dispatch: dispatchContractor } = useContractor();
+  const { dispatch: dispatchDisplay } = useDisplay();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -19,9 +21,11 @@ const ContractorSection = () => {
     e.preventDefault();
     getContractor(payload)
       .then(({ data }) => {
-        dispatch({ type: "set_contractor", data });
+        dispatchDisplay({ type: "hide_total" });
+        dispatchContractor({ type: "set_contractor", data });
       })
       .catch((error) => {
+        // TODO error handling on getting contractor
         console.log(`Error: ${JSON.stringify(error)}`);
       });
   };

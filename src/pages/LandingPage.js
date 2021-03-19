@@ -8,12 +8,12 @@ import OrderSection from "../components/OrderSection";
 const LandingPage = () => {
   return (
     <Container maxWidth={false} className="landing">
-      <ProductProvider>
-        <ContractorProvider>
-          <ContractorSection />
-        </ContractorProvider>
-        <OrderSection />
-      </ProductProvider>
+      <ContractorProvider>
+        <ContractorSection />
+        <ProductProvider>
+          <OrderSection />
+        </ProductProvider>
+      </ContractorProvider>
     </Container>
   );
 };
