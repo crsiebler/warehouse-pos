@@ -10,6 +10,7 @@ import { useProduct } from "../context/productContext";
 import OrderTableHeader from "./OrderTableHeader";
 import ProductRow from "./ProductRow";
 import OrderTotals from "./OrderTotals";
+import Snackbar from "./Snackbar";
 import { validateInvoice } from "../utils/orderUtils";
 
 const OrderForm = () => {
@@ -24,10 +25,24 @@ const OrderForm = () => {
     dispatchInvoice({ type: "add_product", products });
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    dispatchDisplay({ type: "hide_alert" });
+  };
+
   React.useEffect(() => {
-    // TODO error handling invalid invoice
-    console.log(validateInvoice(invoice));
-  }, [invoice]);
+    // Ensure the Invoice is valid, display alert if not
+    const { valid, message } = validateInvoice(invoice);
+    if (!valid) {
+      const alert = { open: true, severity: "error", message };
+      dispatchDisplay({ type: "show_alert", alert });
+    } else {
+      dispatchDisplay({ type: "hide_alert" });
+    }
+  }, [dispatchDisplay, invoice]);
 
   return (
     <TableContainer component={Paper} elevation={3} className="order__form">
@@ -47,6 +62,7 @@ const OrderForm = () => {
           </TableBody>
         )}
       </Table>
+      <Snackbar alert={display.alert} onClose={handleClose} />
     </TableContainer>
   );
 };

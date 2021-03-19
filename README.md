@@ -1,6 +1,11 @@
 # Warehouse Point-of-Sale
 
-A mock application for a warehouse point-of-sale. Project uses [React.js](https://facebook.github.io/create-react-app/docs/getting-started), [Material-UI](https://material-ui.com/), [Hooks](https://reactjs.org/docs/hooks-intro.html), [Immer](https://immerjs.github.io/immer/) for context, and [MockAPI](https://www.mockapi.io/) to reflect a back-end RESTful service providing data to the front-end.
+A mock application for a warehouse point-of-sale. This project uses [React.js](https://facebook.github.io/create-react-app/docs/getting-started), [Material-UI](https://material-ui.com/), [Hooks](https://reactjs.org/docs/hooks-intro.html), [Immer](https://immerjs.github.io/immer/) for context, and [MockAPI](https://www.mockapi.io/) to reflect a back-end RESTful service providing data to the front-end.
+
+Valid Contractors:
+* ID: 1, Name: Cory, Company: GitHub
+* ID: 2, Name: Paul, Company: American Express
+* ID: 3, Name: Elon, Company: Tesla
 
 ## Available Scripts
 

@@ -27,11 +27,11 @@ const ProductQuantityInput = (props) => {
     <TextField
       type="number"
       variant="outlined"
-      className="order__form__table__product__input"
       label={`Avail: ${inventory}`}
       inputProps={{
         min: 0,
         max: inventory,
+        className: "order__form__table__product__input",
       }}
       onChange={handleChange}
       value={invoice[rowIndex].quantity}

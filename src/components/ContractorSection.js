@@ -25,7 +25,7 @@ const ContractorSection = () => {
         dispatchContractor({ type: "set_contractor", data });
       })
       .catch((error) => {
-        // TODO error handling on getting contractor
+        // TODO Error handling on getting contractor
         console.log(`Error: ${JSON.stringify(error)}`);
       });
   };

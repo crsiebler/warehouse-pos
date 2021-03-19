@@ -1,7 +1,10 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
 
-const initialState = { calculate: false };
+const initialState = {
+  calculate: false,
+  alert: { open: false, severity: "info", message: "" },
+};
 
 const DisplayContext = React.createContext({
   state: initialState,
@@ -16,8 +19,11 @@ const reducer = (draft, action) => {
     case "hide_total":
       draft.calculate = false;
       return draft;
-    case "show_error":
-      // TODO add snackbar for errors
+    case "show_alert":
+      draft.alert = { ...draft.alert, ...action.alert };
+      return draft;
+    case "hide_alert":
+      draft.alert.open = false;
       return draft;
     default:
   }
