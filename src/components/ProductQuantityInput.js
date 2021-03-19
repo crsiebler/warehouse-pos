@@ -3,8 +3,8 @@ import TextField from "@material-ui/core/TextField";
 import { useDisplay } from "../context/displayContext";
 import { useInvoice } from "../context/invoiceContext";
 
-const QuantityInput = (props) => {
-  const { rowIndex } = props;
+const ProductQuantityInput = (props) => {
+  const { rowIndex, inventory } = props;
   const { dispatch: dispatchDisplay } = useDisplay();
   const { state: invoice, dispatch: dispatchInvoice } = useInvoice();
 
@@ -14,7 +14,7 @@ const QuantityInput = (props) => {
     if (value < 1) {
       dispatchDisplay({ type: "hide_total" });
       dispatchInvoice({ type: "remove_product", rowIndex });
-    } else if (value > 10) {
+    } else if (value > inventory) {
       // TODO error handling on max inventory reached
       console.log("Not enough in inventory");
     } else {
@@ -26,10 +26,12 @@ const QuantityInput = (props) => {
   return (
     <TextField
       type="number"
+      variant="outlined"
       className="order__form__table__product__input"
+      label={`Avail: ${inventory}`}
       inputProps={{
         min: 0,
-        max: 9999,
+        max: inventory,
       }}
       onChange={handleChange}
       value={invoice[rowIndex].quantity}
@@ -37,4 +39,4 @@ const QuantityInput = (props) => {
   );
 };
 
-export default QuantityInput;
+export default ProductQuantityInput;

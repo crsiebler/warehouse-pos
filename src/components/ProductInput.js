@@ -8,9 +8,9 @@ import { useInvoice } from "../context/invoiceContext";
 const ProductInput = (props) => {
   const { rowIndex } = props;
   const { dispatch: dispatchDisplay } = useDisplay();
-  const [productIndex, setProductIndex] = React.useState(0);
   const { state: products } = useProduct();
   const { dispatch: dispatchInvoice } = useInvoice();
+  const [productIndex, setProductIndex] = React.useState(0);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -18,6 +18,7 @@ const ProductInput = (props) => {
     setProductIndex(value);
     dispatchDisplay({ type: "hide_total" });
     dispatchInvoice({ type: "set_product", data });
+    dispatchInvoice({ type: "reset_quantity", rowIndex });
   };
 
   return (

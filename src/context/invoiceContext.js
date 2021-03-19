@@ -17,15 +17,20 @@ const reducer = (draft, action) => {
       draft.push({ ...action.products[0], quantity: 1 });
       return draft;
     case "set_product":
+      console.log("called");
       draft[action.data.rowIndex] = {
         ...draft[action.data.rowIndex],
         ...action.data.product,
       };
       return draft;
     case "remove_product":
-      return draft.splice(action.rowIndex, 1);
+      draft.splice(action.rowIndex, 1);
+      return draft;
     case "set_quantity":
       draft[action.data.rowIndex].quantity = action.data.quantity;
+      return draft;
+    case "reset_quantity":
+      draft[action.rowIndex].quantity = 1;
       return draft;
     default:
   }

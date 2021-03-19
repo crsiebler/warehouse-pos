@@ -3,7 +3,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { ccyFormat } from "../utils/orderUtils";
 import ProductInput from "./ProductInput";
-import QuantityInput from "./QuantityInput";
+import ProductQuantityInput from "./ProductQuantityInput";
 
 const ProductRow = (props) => {
   const { product, index } = props;
@@ -14,7 +14,7 @@ const ProductRow = (props) => {
       </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell align="right">
-        <QuantityInput rowIndex={index} />
+        <ProductQuantityInput rowIndex={index} inventory={product.inventory} />
       </TableCell>
       <TableCell align="right">{ccyFormat(product.price)}</TableCell>
       <TableCell align="right">
