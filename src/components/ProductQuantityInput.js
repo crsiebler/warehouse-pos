@@ -15,8 +15,12 @@ const ProductQuantityInput = (props) => {
       dispatchDisplay({ type: "hide_total" });
       dispatchInvoice({ type: "remove_product", rowIndex });
     } else if (value > inventory) {
-      // TODO error handling on max inventory reached
-      console.log("Not enough in inventory");
+      const alert = {
+        open: true,
+        severity: "warning",
+        message: "Not enough in inventory.",
+      };
+      dispatchDisplay({ type: "show_alert", alert });
     } else {
       dispatchDisplay({ type: "hide_total" });
       dispatchInvoice({ type: "set_quantity", data });
@@ -30,7 +34,7 @@ const ProductQuantityInput = (props) => {
       label={`Avail: ${inventory}`}
       inputProps={{
         min: 0,
-        max: inventory,
+        max: inventory + 1,
         className: "order__form__table__product__input",
       }}
       onChange={handleChange}

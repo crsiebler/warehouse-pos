@@ -21,11 +21,22 @@ const ContractorSection = () => {
     e.preventDefault();
     getContractor(payload)
       .then(({ data }) => {
+        const alert = {
+          open: true,
+          severity: "success",
+          message: "Contractor Retrieved",
+        };
+        dispatchDisplay({ type: "show_alert", alert });
         dispatchDisplay({ type: "hide_total" });
         dispatchContractor({ type: "set_contractor", data });
       })
       .catch((error) => {
-        // TODO Error handling on getting contractor
+        const alert = {
+          open: true,
+          severity: "error",
+          message: "Fail to retrieve Contractor",
+        };
+        dispatchDisplay({ type: "show_alert", alert });
         console.log(`Error: ${JSON.stringify(error)}`);
       });
   };

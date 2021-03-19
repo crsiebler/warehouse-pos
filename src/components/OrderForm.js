@@ -37,7 +37,7 @@ const OrderForm = () => {
     // Ensure the Invoice is valid, display alert if not
     const { valid, message } = validateInvoice(invoice);
     if (!valid) {
-      const alert = { open: true, severity: "error", message };
+      const alert = { open: true, severity: "warning", message };
       dispatchDisplay({ type: "show_alert", alert });
     } else {
       dispatchDisplay({ type: "hide_alert" });

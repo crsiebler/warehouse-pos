@@ -3,23 +3,30 @@ import Grid from "@material-ui/core/Grid";
 import { getProducts } from "../api/productApi";
 import { InvoiceProvider } from "../context/invoiceContext";
 import { useProduct } from "../context/productContext";
+import { useDisplay } from "../context/displayContext";
 import OrderControls from "./OrderControls";
 import OrderForm from "./OrderForm";
 
 const OrderSection = () => {
-  const { dispatch } = useProduct();
+  const { dispatch: dispatchProduct } = useProduct();
+  const { dispatch: dispatchDisplay } = useDisplay();
 
   React.useEffect(() => {
     getProducts()
       .then(({ data }) => {
-        dispatch({ type: "set_products", data });
-        dispatch({ type: "sort_products", data });
+        dispatchProduct({ type: "set_products", data });
+        dispatchProduct({ type: "sort_products", data });
       })
       .catch((error) => {
-        // TODO error handling on getting products
+        const alert = {
+          open: true,
+          severity: "error",
+          message: "Fail to retrieve Products",
+        };
+        dispatchDisplay({ type: "show_alert", alert });
         console.log(`Error: ${JSON.stringify(error)}`);
       });
-  }, [dispatch]);
+  }, [dispatchProduct, dispatchDisplay]);
 
   return (
     <InvoiceProvider>
