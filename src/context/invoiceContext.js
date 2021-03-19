@@ -29,10 +29,10 @@ const reducer = (draft, action) => {
       };
       return draft;
     case "remove_product":
-      draft.products.splice(action.index, 1);
+      draft.products.splice(action.rowIndex, 1);
       return draft;
     case "set_quantity":
-      draft.products[action.index].quantity = action.quantity;
+      draft.products[action.data.rowIndex].quantity = action.data.value;
       return draft;
     default:
   }
