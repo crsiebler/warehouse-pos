@@ -18,6 +18,9 @@ const reducer = (draft, action) => {
     case "set_contractor":
       draft = action.data;
       return draft;
+    case "close":
+      draft = initialState;
+      return draft;
     default:
   }
 };

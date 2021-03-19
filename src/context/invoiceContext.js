@@ -11,6 +11,7 @@ const InvoiceContext = React.createContext({
 const reducer = (draft, action) => {
   switch (action.type) {
     case "close":
+      draft = initialState;
       return draft;
     case "add_product":
       draft.push({ ...action.products[0], quantity: 1 });
