@@ -1,5 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
+import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import { useDisplay } from "../context/displayContext";
@@ -29,19 +30,24 @@ const OrderForm = () => {
   }, [invoice]);
 
   return (
-    <Paper elevation={3} className="order__form">
+    <TableContainer component={Paper} elevation={3} className="order__form">
       <Table aria-label="order product">
         <OrderTableHeader onClick={handleAddButton} />
-        <TableBody>
-          {invoice.map((product, index) => (
-            <ProductRow key={index} product={product} index={index} />
-          ))}
-          {display.calculate && (
-            <OrderTotals invoice={invoice} discountRate={contractor.discount} />
-          )}
-        </TableBody>
+        {invoice.length > 0 && (
+          <TableBody>
+            {invoice.map((product, index) => (
+              <ProductRow key={index} product={product} index={index} />
+            ))}
+            {display.calculate && (
+              <OrderTotals
+                invoice={invoice}
+                discountRate={contractor.discount}
+              />
+            )}
+          </TableBody>
+        )}
       </Table>
-    </Paper>
+    </TableContainer>
   );
 };
 
