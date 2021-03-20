@@ -42,7 +42,7 @@
 .order__form__table__product__select {
   padding: 5px 10px;
   text-overflow: ellipsis;
-  max-width: 9ch;
+  max-width: 10ch;
 }
 
 .order__form__table__product__input {

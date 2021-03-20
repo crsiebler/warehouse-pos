@@ -1,18 +1,16 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
 
-const initialState = [];
-
-const ProductContext = React.createContext({
-  state: initialState,
-  dispatch: () => {},
-});
+const ActionTypes = {
+  SET_PRODUCTS: "SET_PRODUCTS",
+  SORT_PRODUCTS: "SORT_PRODUCTS",
+};
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case "set_products":
+    case ActionTypes.SET_PRODUCTS:
       return draft.concat(action.data);
-    case "sort_products":
+    case ActionTypes.SORT_PRODUCTS:
       return draft.sort((a, b) => {
         return a.sku.localeCompare(b.sku);
       });
@@ -20,19 +18,54 @@ const reducer = (draft, action) => {
   }
 };
 
-export const ProductProvider = (props) => {
-  const { children } = props;
+const initialState = [
+  {
+    id: "",
+    name: "",
+    price: 0,
+    sku: "*None*",
+    inventory: 1,
+  },
+];
+
+const StateContext = React.createContext(initialState);
+const DispatchContext = React.createContext(undefined);
+
+export const ProductProvider = ({ children }) => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
-  const value = { state, dispatch };
   return (
-    <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        {children}
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 };
 
 export const useProduct = () => {
-  const context = React.useContext(ProductContext);
-  if (context === undefined) {
-    throw new Error("useProduct must be used within a ProductProvider");
+  return React.useContext(StateContext);
+};
+
+export const useProductDispatch = () => {
+  const dispatch = React.useContext(DispatchContext);
+
+  if (dispatch === undefined) {
+    throw new Error("useProductDispatch must be used within a ProductProvider");
   }
-  return context;
+
+  const setProducts = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.SET_PRODUCTS, data });
+    },
+    [dispatch]
+  );
+
+  const sortProducts = React.useCallback(() => {
+    dispatch({ type: ActionTypes.SORT_PRODUCTS });
+  }, [dispatch]);
+
+  return React.useMemo(() => ({ setProducts, sortProducts }), [
+    setProducts,
+    sortProducts,
+  ]);
 };

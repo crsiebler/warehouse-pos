@@ -8,17 +8,22 @@ import { useInvoice } from "../context/invoiceContext";
 const ProductInput = (props) => {
   const { rowIndex } = props;
   const { hideTotal } = useDisplayDispatch();
-  const { state: products } = useProduct();
+  const products = useProduct();
   const { dispatch: dispatchInvoice } = useInvoice();
   const [productIndex, setProductIndex] = React.useState(0);
 
   const handleChange = (e) => {
     const { value } = e.target;
-    const data = { product: products[value], rowIndex };
-    setProductIndex(value);
-    hideTotal();
-    dispatchInvoice({ type: "set_product", data });
-    dispatchInvoice({ type: "reset_quantity", rowIndex });
+    const product = products[value];
+    const data = { product, rowIndex };
+    if (product.sku === "*None*") {
+      dispatchInvoice({ type: "remove_product", rowIndex });
+    } else {
+      setProductIndex(value);
+      hideTotal();
+      dispatchInvoice({ type: "set_product", data });
+      dispatchInvoice({ type: "reset_quantity", rowIndex });
+    }
   };
 
   console.log(`RENDERED: ProductInput (${rowIndex})`);
