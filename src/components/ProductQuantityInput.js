@@ -1,31 +1,33 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { useDisplay } from "../context/displayContext";
+import { useDisplayDispatch } from "../context/displayContext";
 import { useInvoice } from "../context/invoiceContext";
 
 const ProductQuantityInput = (props) => {
-  const { rowIndex, inventory } = props;
-  const { dispatch: dispatchDisplay } = useDisplay();
-  const { state: invoice, dispatch: dispatchInvoice } = useInvoice();
+  const { rowIndex, inventory, quantity } = props;
+  const { hideTotal, showAlert } = useDisplayDispatch();
+  const { dispatch: dispatchInvoice } = useInvoice();
 
   const handleChange = (e) => {
     const { value } = e.target;
-    const data = { rowIndex, quantity: parseInt(value) };
+    const data = { rowIndex, quantity: value };
     if (value < 1) {
-      dispatchDisplay({ type: "hide_total" });
+      hideTotal();
       dispatchInvoice({ type: "remove_product", rowIndex });
     } else if (value > inventory) {
-      const alert = {
+      showAlert({
         open: true,
         severity: "warning",
         message: "Not enough in inventory.",
-      };
-      dispatchDisplay({ type: "show_alert", alert });
+      });
     } else {
-      dispatchDisplay({ type: "hide_total" });
+      console.log(data);
+      hideTotal();
       dispatchInvoice({ type: "set_quantity", data });
     }
   };
+
+  console.log(`RENDERED: ProductQuantityInput (${rowIndex})`);
 
   return (
     <TextField
@@ -38,7 +40,7 @@ const ProductQuantityInput = (props) => {
         className: "order__form__table__product__input",
       }}
       onChange={handleChange}
-      value={invoice[rowIndex].quantity}
+      value={quantity}
     />
   );
 };

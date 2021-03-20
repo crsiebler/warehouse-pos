@@ -14,10 +14,9 @@ const reducer = (draft, action) => {
       draft = initialState;
       return draft;
     case "add_product":
-      draft.push({ ...action.products[0], quantity: 1 });
+      draft.push({ ...action.data[0], quantity: 1 });
       return draft;
     case "set_product":
-      console.log("called");
       draft[action.data.rowIndex] = {
         ...draft[action.data.rowIndex],
         ...action.data.product,

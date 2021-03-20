@@ -2,7 +2,7 @@ import React from "react";
 import { useImmerReducer } from "use-immer";
 
 const initialState = {
-  id: null,
+  id: "",
   name: "",
   company: "",
   discount: 0,

@@ -3,22 +3,18 @@ import PropTypes from "prop-types";
 import MuiSnackbar from "@material-ui/core/Snackbar";
 import Alert from "./Alert";
 
-const Snackbar = (props) => {
-  const { alert, onClose, duration } = props;
-  console.log(alert);
-  return (
-    <MuiSnackbar
-      open={alert.open}
-      autoHideDuration={duration}
-      onClose={onClose}
-      {...props}
-    >
-      <Alert onClose={onClose} severity={alert.severity}>
-        {alert.message}
-      </Alert>
-    </MuiSnackbar>
-  );
-};
+const Snackbar = ({ alert, onClose, duration, ...rest }) => (
+  <MuiSnackbar
+    open={alert.open}
+    autoHideDuration={duration}
+    onClose={onClose}
+    {...rest}
+  >
+    <Alert onClose={onClose} severity={alert.severity}>
+      {alert.message}
+    </Alert>
+  </MuiSnackbar>
+);
 
 Snackbar.propTypes = {
   alert: PropTypes.shape({
@@ -31,6 +27,8 @@ Snackbar.propTypes = {
 };
 
 Snackbar.defaultProps = {
+  alert: { open: false, severity: "info", message: "" },
+  onClose: () => {},
   duration: 6000,
 };
 

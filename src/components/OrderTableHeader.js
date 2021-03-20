@@ -6,8 +6,9 @@ import TableCell from "@material-ui/core/TableCell";
 import Fab from "@material-ui/core/Fab";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 
-const OrderTableHeader = (props) => {
-  const { onClick } = props;
+const OrderTableHeader = ({ onClick }) => {
+  console.log("RENDERED: OrderTableHeader");
+
   return (
     <TableHead>
       <TableRow>
@@ -39,6 +40,10 @@ const OrderTableHeader = (props) => {
 
 OrderTableHeader.propTypes = {
   onClick: PropTypes.func.isRequired,
+};
+
+OrderTableHeader.defaultProps = {
+  onClick: () => {},
 };
 
 export default OrderTableHeader;

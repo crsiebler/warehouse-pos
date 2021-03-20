@@ -41,7 +41,7 @@ const formatTotals = (totals) => {
     taxPercentage: `${(TAX_RATE * 100).toFixed(1)} %`,
     discountPercentage: `${(totals.discountRate * 100).toFixed(1)} %`,
     subtotalFormatted: ccyFormat(totals.subtotal),
-    discountFormatted: ccyFormat(totals.discount),
+    discountFormatted: `(${ccyFormat(totals.discount)})`,
     taxesFormatted: ccyFormat(totals.taxes),
     totalFormatted: ccyFormat(totals.total),
   };

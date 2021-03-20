@@ -2,10 +2,36 @@
 
 A mock application for a warehouse point-of-sale. This project uses [React.js](https://facebook.github.io/create-react-app/docs/getting-started), [Material-UI](https://material-ui.com/), [Hooks](https://reactjs.org/docs/hooks-intro.html), [Immer](https://immerjs.github.io/immer/) for context, and [MockAPI](https://www.mockapi.io/) to reflect a back-end RESTful service providing data to the front-end.
 
-Valid Contractors:
-* ID: 1, Name: Cory, Company: GitHub
-* ID: 2, Name: Paul, Company: American Express
-* ID: 3, Name: Elon, Company: Tesla
+## How to Use
+
+1. Type your contractor ID in the text field and hit the [Enter] key or [Return] on mobile. The contractor IDs correspond to the company's stock symbol.
+![ContractorInput](docs/contractorInput.png)
+1. Add product(s) using the AddToCart Button
+![AddToCartButton](docs/addToCart.png)
+3. Modify the quantity using the text field
+   1. The available inventory for the product is shown as "Avail: X" where X is the current inventory.
+   2. Quantities greater than the available inventory are not permitted to be inserted.
+   3. If the quantity is set to zero then the product is removed from the cart.
+![QuantityInput](docs/quantityInput.png)
+4. Hit the calculate button when the cart is finalized. 
+![CalculateButton](docs/calculateButton.png)
+5. Optional, hit the print button to print an invoice.
+![PrintButton](docs/printButton.png)
+6. When finished, hit the Close button. PLEASE NOTE: All data will be reset when clicking.
+![CloseButton](docs/closeButton.png)
+
+Example Contractors:
+* { "id": "AAPL", "company": "Apple Inc.", "name": "Tim Cook", "discount": 0.8 }
+* { "id": "AMZN", "company": "Amazon.com", "name": "Jeff Bezos", "discount": 0.83 }
+* { "id": "AXP", "company": "American Express", "name": "Stephen Squeri", "discount": 1.0 }
+* { "id": "BRK-A", "company": "Berkshire Hathaway", "name": "Warren Buffett", "discount": 0.12 }
+* { "id": "KO", "company": "Coca-Cola", "name": "James Quincey", "discount": 0.01 }
+
+# Mocking
+
+An accompanying repository [warehouse-api](https://github.com/crsiebler/warehouse-api) is provided for mocking the back-end application. This is only necessary when running locally. Change directory into that repository and run the following:
+
+### `yarn start`
 
 ## Available Scripts
 

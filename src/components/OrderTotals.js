@@ -4,9 +4,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { calculateInvoice, formatTotals } from "../utils/orderUtils";
 
-const OrderTotals = (props) => {
-  const { invoice, discountRate } = props;
-
+const OrderTotals = ({ invoice, discountRate }) => {
   const {
     subtotalFormatted,
     discountFormatted,
@@ -52,9 +50,15 @@ OrderTotals.propTypes = {
       price: PropTypes.number,
       quantity: PropTypes.number,
       sku: PropTypes.string,
+      inventory: PropTypes.number,
     })
   ).isRequired,
   discountRate: PropTypes.number.isRequired,
 };
 
-export default React.memo(OrderTotals);
+OrderTotals.defaultProps = {
+  invoice: [],
+  discountRate: 0,
+};
+
+export default OrderTotals;

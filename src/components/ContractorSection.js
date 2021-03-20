@@ -2,41 +2,39 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import { useContractor } from "../context/contractorContext";
-import { useDisplay } from "../context/displayContext";
+import { useDisplayDispatch } from "../context/displayContext";
 import { getContractor } from "../api/contractorApi";
 import ContractorInput from "./ContactorInput";
 import ContractorDisplay from "./ContractorDisplay";
 
 const ContractorSection = () => {
-  const [payload, setPayload] = React.useState({ id: "" });
   const { state: contractor, dispatch: dispatchContractor } = useContractor();
-  const { dispatch: dispatchDisplay } = useDisplay();
+  const { showAlert, hideTotal } = useDisplayDispatch();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setPayload({ ...payload, [id]: value });
+    const data = { ...contractor, [id]: value };
+    dispatchContractor({ type: "set_contractor", data });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getContractor(payload)
+    getContractor(contractor)
       .then(({ data }) => {
-        const alert = {
+        showAlert({
           open: true,
           severity: "success",
           message: "Contractor Retrieved",
-        };
-        dispatchDisplay({ type: "show_alert", alert });
-        dispatchDisplay({ type: "hide_total" });
+        });
+        hideTotal();
         dispatchContractor({ type: "set_contractor", data });
       })
       .catch((error) => {
-        const alert = {
+        showAlert({
           open: true,
           severity: "error",
           message: "Fail to retrieve Contractor",
-        };
-        dispatchDisplay({ type: "show_alert", alert });
+        });
         console.log(`Error: ${JSON.stringify(error)}`);
       });
   };
@@ -47,7 +45,7 @@ const ContractorSection = () => {
         <ContractorInput
           onSubmit={handleSubmit}
           onChange={handleChange}
-          payload={payload}
+          value={contractor.id}
         />
         <ContractorDisplay contractor={contractor} />
       </Container>

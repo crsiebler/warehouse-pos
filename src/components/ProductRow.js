@@ -7,6 +7,9 @@ import ProductQuantityInput from "./ProductQuantityInput";
 
 const ProductRow = (props) => {
   const { product, index } = props;
+
+  console.log(`RENDERED: ProductRow (${index})`);
+
   return (
     <TableRow>
       <TableCell>
@@ -14,7 +17,11 @@ const ProductRow = (props) => {
       </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell align="right">
-        <ProductQuantityInput rowIndex={index} inventory={product.inventory} />
+        <ProductQuantityInput
+          rowIndex={index}
+          inventory={product.inventory}
+          quantity={product.quantity}
+        />
       </TableCell>
       <TableCell align="right">{ccyFormat(product.price)}</TableCell>
       <TableCell align="right">

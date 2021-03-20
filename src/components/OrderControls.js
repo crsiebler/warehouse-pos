@@ -1,23 +1,23 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
-import { useDisplay } from "../context/displayContext";
+import { useDisplayDispatch } from "../context/displayContext";
 import { useContractor } from "../context/contractorContext";
 import { useInvoice } from "../context/invoiceContext";
 
 const OrderControls = () => {
-  const { dispatch: dispatchDisplay } = useDisplay();
+  const { showTotal, hideTotal } = useDisplayDispatch();
   const { dispatch: dispatchContractor } = useContractor();
   const { dispatch: dispatchInvoice } = useInvoice();
 
   const handleCalculate = (e) => {
     e.preventDefault();
-    dispatchDisplay({ type: "show_total" });
+    showTotal();
   };
 
   const handleClose = (e) => {
     e.preventDefault();
-    dispatchDisplay({ type: "hide_total" });
+    hideTotal();
     dispatchContractor({ type: "close" });
     dispatchInvoice({ type: "close" });
   };

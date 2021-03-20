@@ -1,13 +1,13 @@
 import React from "react";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useDisplay } from "../context/displayContext";
+import { useDisplayDispatch } from "../context/displayContext";
 import { useProduct } from "../context/productContext";
 import { useInvoice } from "../context/invoiceContext";
 
 const ProductInput = (props) => {
   const { rowIndex } = props;
-  const { dispatch: dispatchDisplay } = useDisplay();
+  const { hideTotal } = useDisplayDispatch();
   const { state: products } = useProduct();
   const { dispatch: dispatchInvoice } = useInvoice();
   const [productIndex, setProductIndex] = React.useState(0);
@@ -16,10 +16,12 @@ const ProductInput = (props) => {
     const { value } = e.target;
     const data = { product: products[value], rowIndex };
     setProductIndex(value);
-    dispatchDisplay({ type: "hide_total" });
+    hideTotal();
     dispatchInvoice({ type: "set_product", data });
     dispatchInvoice({ type: "reset_quantity", rowIndex });
   };
+
+  console.log(`RENDERED: ProductInput (${rowIndex})`);
 
   return (
     <Select
