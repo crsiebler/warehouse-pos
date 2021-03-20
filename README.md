@@ -5,28 +5,49 @@ A mock application for a warehouse point-of-sale. This project uses [React.js](h
 ## How to Use
 
 1. Type your contractor ID in the text field and hit the [Enter] key on desktop or [Return] on mobile. The contractor IDs correspond to the company's stock symbol.
+
 ![ContractorInput](docs/contractorInput.png)
+
 1. Add product(s) using the AddToCart Button
+
 ![AddToCartButton](docs/addToCart.png)
+
    1. A new row will be added to the cart.
+
    ![ProductAddedToCart](docs/productAddedToCart.png)
-   2. The `*None*` represents no product selected.
+
+   1. The `*None*` represents no product selected.
+
    ![EmptyProductSelected](docs/emptyProductSelect.png)
-   4. The desired product Part No. must be selected.
+
+   1. The desired product Part No. must be selected.
+
    ![ProductSelection](docs/productMenuItems.png)
-   5. You can remove a product by re-selecting `*None*` from the currently selected product.
+
+   1. You can remove a product by re-selecting `*None*` from the currently selected product.
+
    ![RemoveProduct](docs/removeProduct.gif)
+
 1. Modify the quantity using the text field
    1. The available inventory for the product is shown as "Avail: X" where X is the current inventory.
-![QuantityInput](docs/quantityInput.png)
+
+   ![QuantityInput](docs/quantityInput.png)
+
    2. Quantities greater than the available inventory are not permitted to be inserted.
    3. If the quantity is set to zero then the product is removed from the cart.
+
    ![ZeroQuantity](docs/zeroQuantity.gif)
-1. Hit the calculate button when the cart is finalized. 
+
+1. Hit the calculate button when the cart is finalized.
+
 ![CalculateButton](docs/calculateButton.png)
+
 5. Optional, hit the print button to print an invoice.
+
 ![PrintButton](docs/printButton.png)
+
 6. When finished, hit the Close button. PLEASE NOTE: All data will be reset when clicking.
+
 ![CloseButton](docs/closeButton.png)
 
 Example Contractors:
