@@ -2,18 +2,16 @@ import React from "react";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { ccyFormat } from "../utils/orderUtils";
-import ProductInput from "./ProductInput";
+import ProductSelect from "./ProductSelect";
 import ProductQuantityInput from "./ProductQuantityInput";
 
-const ProductRow = (props) => {
-  const { product, index } = props;
-
+const ProductRow = ({ product, index }) => {
   console.log(`RENDERED: ProductRow (${index})`);
 
   return (
     <TableRow>
       <TableCell>
-        <ProductInput rowIndex={index} />
+        <ProductSelect rowIndex={index} />
       </TableCell>
       <TableCell>{product.name}</TableCell>
       <TableCell align="right">

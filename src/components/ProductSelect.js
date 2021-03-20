@@ -4,8 +4,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useProduct } from "../context/productContext";
 import { useInvoice } from "../context/invoiceContext";
+import { EMPTY_PRODUCT } from "../utils/orderUtils";
 
-const ProductInput = (props) => {
+const ProductSelect = (props) => {
   const { rowIndex } = props;
   const { hideTotal } = useDisplayDispatch();
   const products = useProduct();
@@ -16,7 +17,7 @@ const ProductInput = (props) => {
     const { value } = e.target;
     const product = products[value];
     const data = { product, rowIndex };
-    if (product.sku === "*None*") {
+    if (product.sku === EMPTY_PRODUCT) {
       dispatchInvoice({ type: "remove_product", rowIndex });
     } else {
       setProductIndex(value);
@@ -26,7 +27,7 @@ const ProductInput = (props) => {
     }
   };
 
-  console.log(`RENDERED: ProductInput (${rowIndex})`);
+  console.log(`RENDERED: ProductSelect (${rowIndex})`);
 
   return (
     <Select
@@ -44,4 +45,4 @@ const ProductInput = (props) => {
   );
 };
 
-export default ProductInput;
+export default ProductSelect;

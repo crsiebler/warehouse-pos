@@ -1,4 +1,5 @@
 const TAX_RATE = 0.085;
+const EMPTY_PRODUCT = "*None*";
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -47,23 +48,20 @@ const formatTotals = (totals) => {
   };
 };
 
-const validateInvoice = (invoice) => {
-  let result = {
-    valid: true,
-    message: "",
-  };
+const hasDuplicates = (invoice) => {
+  let result = false;
   let map = {};
   let cartSize = invoice.length;
 
   // Check for duplicate Products based on SKU
   if (cartSize > 1) {
     for (let i = 0; i < cartSize; i++) {
-      // Check if object contains entry with this element as key
-      if (map[invoice[i].sku]) {
-        result = {
-          valid: false,
-          message: "Duplicate product in cart",
-        };
+      // Skip the products in cart that have not been selected yet
+      if (invoice[i].sku === EMPTY_PRODUCT) {
+        continue;
+      } else if (map[invoice[i].sku]) {
+        // Cart contains entry with this element as key
+        result = true;
         break;
       }
       // Add entry in object with the element as key
@@ -74,4 +72,10 @@ const validateInvoice = (invoice) => {
   return result;
 };
 
-export { ccyFormat, calculateInvoice, formatTotals, validateInvoice };
+export {
+  EMPTY_PRODUCT,
+  ccyFormat,
+  calculateInvoice,
+  formatTotals,
+  hasDuplicates,
+};

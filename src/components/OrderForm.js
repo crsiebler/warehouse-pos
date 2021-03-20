@@ -8,7 +8,7 @@ import { useContractor } from "../context/contractorContext";
 import { useInvoice } from "../context/invoiceContext";
 import { useProduct, useProductDispatch } from "../context/productContext";
 import { getProducts } from "../api/productApi";
-import { validateInvoice } from "../utils/orderUtils";
+import { hasDuplicates } from "../utils/orderUtils";
 import OrderTableHeader from "./OrderTableHeader";
 import ProductRow from "./ProductRow";
 import OrderTotals from "./OrderTotals";
@@ -71,9 +71,12 @@ const OrderForm = () => {
 
   React.useEffect(() => {
     // Ensure the Invoice is valid, display alert if not
-    const { valid, message } = validateInvoice(invoice);
-    if (!valid) {
-      showAlert({ open: true, severity: "warning", message });
+    if (hasDuplicates(invoice)) {
+      showAlert({
+        open: true,
+        severity: "warning",
+        message: "Duplicate product in cart",
+      });
     } else {
       hideAlert();
     }
@@ -90,13 +93,6 @@ const OrderForm = () => {
         {invoice.length > 0 && (
           <TableBody>
             {invoice.map((product, index) => {
-              // const handleRowChange = React.useMemo(
-              //   (e) => {
-              //     return handleChange(e, index);
-              //   },
-              //   [index]
-              // );
-
               const handleRowChange = (e) => {
                 handleChange(e, index);
               };

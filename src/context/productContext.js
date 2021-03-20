@@ -1,5 +1,6 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
+import { EMPTY_PRODUCT } from "../utils/orderUtils";
 
 const ActionTypes = {
   SET_PRODUCTS: "SET_PRODUCTS",
@@ -23,7 +24,7 @@ const initialState = [
     id: "",
     name: "",
     price: 0,
-    sku: "*None*",
+    sku: EMPTY_PRODUCT,
     inventory: 1,
   },
 ];

@@ -14,6 +14,7 @@ const ContractorInput = ({ value, onChange, onSubmit }) => (
         <TextField
           id="id"
           variant="outlined"
+          autoComplete="off"
           inputProps={{ className: "contractor__form__input" }}
           value={value}
           onChange={onChange}
