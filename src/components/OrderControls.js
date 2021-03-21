@@ -1,19 +1,30 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
 import { useDisplayDispatch } from "../context/displayContext";
-import { useContractorDispatch } from "../context/contractorContext";
-import { useInvoiceDispatch } from "../context/invoiceContext";
+import {
+  useContractor,
+  useContractorDispatch,
+} from "../context/contractorContext";
+import { useInvoice, useInvoiceDispatch } from "../context/invoiceContext";
+import { printInvoice, validate } from "../utils/orderUtils";
 import InvoiceDisplay from "./InvoiceDisplay";
 import OrderButton from "./OrderButton";
 
 const OrderControls = () => {
-  const { showTotal, hideTotal, showAlert } = useDisplayDispatch();
+  const invoice = useInvoice();
+  const { contractor } = useContractor();
+  const { showTotal, hideTotal, showAlert, hideAlert } = useDisplayDispatch();
   const { closeContractor } = useContractorDispatch();
   const { closeInvoice } = useInvoiceDispatch();
+  const [printing, setPrinting] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    showTotal();
+    // Ensure the Invoice is valid, display alert if not
+    if (validate(invoice, showAlert)) {
+      hideAlert();
+      showTotal();
+    }
   };
 
   const handlePrint = (e) => {
@@ -28,16 +39,8 @@ const OrderControls = () => {
         severity: "warning",
         message: "Android not supported.",
       });
-    } else {
-      // Print the iframe containing the invoice
-      const frame = document.getElementById("invoiceIframe");
-      const contentWindow = frame.contentWindow;
-      const innerHTML = frame.innerHTML;
-      contentWindow.document.open();
-      contentWindow.document.write(innerHTML);
-      contentWindow.document.close();
-      contentWindow.focus();
-      contentWindow.print();
+    } else if (validate(invoice, showAlert)) {
+      setPrinting(true);
     }
   };
 
@@ -48,9 +51,17 @@ const OrderControls = () => {
     closeInvoice();
   };
 
+  React.useEffect(() => {
+    // Put printing in useEffect so the iframe is only rendered when desired.
+    if (printing) {
+      printInvoice();
+      setPrinting(false);
+    }
+  }, [printing]);
+
   return (
     <>
-      <InvoiceDisplay />
+      {printing && <InvoiceDisplay invoice={invoice} contractor={contractor} />}
       <Box display="flex" flexDirection="column" className="order__controls">
         <Box p={0.5}>
           <OrderButton onClick={handleSubmit}>Calculate</OrderButton>

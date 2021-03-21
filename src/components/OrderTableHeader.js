@@ -1,13 +1,58 @@
 import React from "react";
-import PropTypes from "prop-types";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
 import Fab from "@material-ui/core/Fab";
 import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
+import { getProducts } from "../api/productApi";
+import { useDisplayDispatch } from "../context/displayContext";
+import { useInvoiceDispatch } from "../context/invoiceContext";
+import { useProductDispatch } from "../context/productContext";
 
-const OrderTableHeader = ({ onClick }) => {
+const OrderTableHeader = () => {
   console.log("RENDERED: OrderTableHeader");
+  const { addProduct } = useInvoiceDispatch();
+  const { hideTotal } = useDisplayDispatch();
+  const { showAlert /*, showLoading, hideLoading */ } = useDisplayDispatch();
+  const { setProducts } = useProductDispatch();
+
+  const handleAddButton = (e) => {
+    e.preventDefault();
+    hideTotal();
+    addProduct();
+  };
+
+  React.useEffect(() => {
+    // showLoading();
+    getProducts()
+      .then(({ data }) => {
+        if (data.length > 0) {
+          data.sort((a, b) => {
+            return a.sku.localeCompare(b.sku);
+          });
+          hideTotal();
+          setProducts(data);
+        } else {
+          showAlert({
+            open: true,
+            severity: "warning",
+            message: "No products in system",
+          });
+        }
+      })
+      .catch((error) => {
+        showAlert({
+          open: true,
+          severity: "error",
+          message: "Fail to retrieve Products",
+        });
+        console.log(`Error: ${JSON.stringify(error)}`);
+      })
+      .finally(() => {
+        // hideLoading();
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <TableHead>
@@ -17,7 +62,7 @@ const OrderTableHeader = ({ onClick }) => {
             size="small"
             color="primary"
             aria-label="add to invoice"
-            onClick={onClick}
+            onClick={handleAddButton}
           >
             <AddShoppingCartIcon />
           </Fab>
@@ -38,12 +83,4 @@ const OrderTableHeader = ({ onClick }) => {
   );
 };
 
-OrderTableHeader.propTypes = {
-  onClick: PropTypes.func.isRequired,
-};
-
-OrderTableHeader.defaultProps = {
-  onClick: () => {},
-};
-
-export default OrderTableHeader;
+export default React.memo(OrderTableHeader);

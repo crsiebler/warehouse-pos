@@ -26,6 +26,7 @@ const ContractorSection = () => {
     e.preventDefault();
     showLoading();
     hideAlert();
+    hideTotal();
     getContractor(contractor)
       .then(({ data }) => {
         showAlert({
@@ -33,7 +34,6 @@ const ContractorSection = () => {
           severity: "success",
           message: "Contractor Retrieved",
         });
-        hideTotal();
         setContractor(data);
       })
       .catch((error) => {

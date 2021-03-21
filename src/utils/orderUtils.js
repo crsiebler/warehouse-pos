@@ -89,8 +89,52 @@ const hasDuplicates = (invoice) => {
   return result;
 };
 
+const containsDummyProduct = (invoice) => {
+  return invoice.includes(DUMMY_PRODUCT);
+};
+
+const validate = (invoice, showAlert = () => {}) => {
+  let valid = true;
+  if (invoice.length < 1) {
+    showAlert({
+      open: true,
+      severity: "warning",
+      message: "No products in cart",
+    });
+    valid = false;
+  } else if (hasDuplicates(invoice)) {
+    showAlert({
+      open: true,
+      severity: "warning",
+      message: "Duplicate product in cart",
+    });
+    valid = false;
+  } else if (containsDummyProduct(invoice)) {
+    showAlert({
+      open: true,
+      severity: "warning",
+      message: "One or more products not set",
+    });
+    valid = false;
+  }
+
+  return valid;
+};
+
 const formatDate = (date, options = DATE_FORMATION_OPTIONS) => {
   return new Intl.DateTimeFormat("en-US", options).format(date);
+};
+
+const printInvoice = () => {
+  // Print the iframe containing the invoice
+  const frame = document.getElementById("invoiceIframe");
+  const contentWindow = frame.contentWindow;
+  const innerHTML = frame.innerHTML;
+  contentWindow.document.open();
+  contentWindow.document.write(innerHTML);
+  contentWindow.document.close();
+  contentWindow.focus();
+  contentWindow.print();
 };
 
 export {
@@ -101,4 +145,6 @@ export {
   formatTotals,
   hasDuplicates,
   formatDate,
+  printInvoice,
+  validate,
 };

@@ -8,6 +8,7 @@ import {
 } from "../utils/orderUtils";
 
 const InvoiceDisplay = ({ contractor, invoice }) => {
+  console.log("RENDERING: InvoiceDisplay");
   const now = formatDate(new Date());
 
   const {
@@ -74,8 +75,8 @@ const InvoiceDisplay = ({ contractor, invoice }) => {
             </tr>
           </thead>
           <tbody>
-            {invoice.map((product) => (
-              <tr key={product.sku}>
+            {invoice.map((product, index) => (
+              <tr key={index}>
                 <td>{product.sku}</td>
                 <td>{product.name}</td>
                 <td align="center">{product.quantity}</td>
@@ -147,37 +148,12 @@ InvoiceDisplay.propTypes = {
 
 InvoiceDisplay.defaultProps = {
   contractor: {
-    id: "TSLA",
-    name: "Elon Musk",
-    company: "Tesla, Inc.",
-    discount: 0.05,
+    id: "",
+    name: "",
+    company: "",
+    discount: 0,
   },
-  invoice: [
-    {
-      id: "1",
-      name: "Intelligent Frozen Cheese",
-      price: 25,
-      sku: "fcb3659b-cbe9-43b9-9276-e1a82b17cc1b",
-      inventory: 77,
-      quantity: 50,
-    },
-    {
-      id: "2",
-      name: "Tasty Concrete Bacon",
-      price: 81,
-      sku: "346f0e04-73fb-47ba-95b9-ba83473fe5ae",
-      inventory: 65,
-      quantity: 25,
-    },
-    {
-      id: "3",
-      name: "Handcrafted Metal Towels",
-      price: 45,
-      sku: "3124da7e-c212-4657-8df8-7fc0a144b503",
-      inventory: 98,
-      quantity: 75,
-    },
-  ],
+  invoice: [],
 };
 
 export default React.memo(InvoiceDisplay);
