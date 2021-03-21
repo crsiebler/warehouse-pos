@@ -1,10 +1,10 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useContractorDispatch } from "../context/contractorContext";
 import { useInvoiceDispatch } from "../context/invoiceContext";
 import InvoiceDisplay from "./InvoiceDisplay";
+import OrderButton from "./OrderButton";
 
 const OrderControls = () => {
   const { showTotal, hideTotal, showAlert } = useDisplayDispatch();
@@ -53,37 +53,17 @@ const OrderControls = () => {
       <InvoiceDisplay />
       <Box display="flex" flexDirection="column" className="order__controls">
         <Box p={0.5}>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="order__controls__button"
-            onClick={handleSubmit}
-          >
-            Calculate
-          </Button>
+          <OrderButton onClick={handleSubmit}>Calculate</OrderButton>
         </Box>
         <Box p={0.5} flexGrow={1}>
-          <Button
-            type="print"
-            variant="contained"
-            color="primary"
-            className="order__controls__button"
-            onClick={handlePrint}
-          >
+          <OrderButton type="print" onClick={handlePrint}>
             Print
-          </Button>
+          </OrderButton>
         </Box>
         <Box p={0.5}>
-          <Button
-            type="clear"
-            variant="contained"
-            color="secondary"
-            className="order__controls__button"
-            onClick={handleClose}
-          >
+          <OrderButton type="clear" color="secondary" onClick={handleClose}>
             Close
-          </Button>
+          </OrderButton>
         </Box>
       </Box>
     </>

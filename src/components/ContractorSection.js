@@ -1,6 +1,7 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   useContractor,
   useContractorDispatch,
@@ -11,14 +12,9 @@ import ContractorInput from "./ContactorInput";
 import ContractorDisplay from "./ContractorDisplay";
 
 const ContractorSection = () => {
-  const contractor = useContractor();
-  const { setContractor } = useContractorDispatch();
-  const {
-    showAlert,
-    hideTotal,
-    showLoading,
-    hideLoading,
-  } = useDisplayDispatch();
+  const { contractor, loading } = useContractor();
+  const { setContractor, showLoading, hideLoading } = useContractorDispatch();
+  const { showAlert, hideTotal, hideAlert } = useDisplayDispatch();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -29,6 +25,7 @@ const ContractorSection = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     showLoading();
+    hideAlert();
     getContractor(contractor)
       .then(({ data }) => {
         showAlert({
@@ -60,7 +57,11 @@ const ContractorSection = () => {
           onChange={handleChange}
           value={contractor.id}
         />
-        <ContractorDisplay contractor={contractor} />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <ContractorDisplay contractor={contractor} />
+        )}
       </Container>
     </Paper>
   );

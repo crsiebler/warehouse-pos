@@ -6,5 +6,7 @@ const BASE_URL =
     : "http://localhost:3001";
 
 export const getContractor = (paylod) => {
-  return axios.get(`${BASE_URL}/contractors/${encodeURIComponent(paylod.id)}`);
+  return axios.get(
+    `${BASE_URL}/contractors/${encodeURIComponent(paylod.id.toUpperCase())}`
+  );
 };

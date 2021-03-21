@@ -2,9 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
+import { useContractor } from "../context/contractorContext";
 import { calculateInvoice, formatTotals } from "../utils/orderUtils";
 
-const OrderTotals = ({ invoice, discountRate }) => {
+const OrderTotals = ({ invoice }) => {
+  const { contractor } = useContractor();
   const {
     subtotalFormatted,
     discountFormatted,
@@ -13,8 +15,8 @@ const OrderTotals = ({ invoice, discountRate }) => {
     taxPercentage,
     discountPercentage,
   } = React.useMemo(
-    () => formatTotals(calculateInvoice(invoice, discountRate)),
-    [invoice, discountRate]
+    () => formatTotals(calculateInvoice(invoice, contractor.discount)),
+    [invoice, contractor.discount]
   );
 
   return (
@@ -55,12 +57,10 @@ OrderTotals.propTypes = {
       inventory: PropTypes.number,
     })
   ).isRequired,
-  discountRate: PropTypes.number.isRequired,
 };
 
 OrderTotals.defaultProps = {
   invoice: [],
-  discountRate: 0,
 };
 
 export default OrderTotals;

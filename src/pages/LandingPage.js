@@ -7,7 +7,7 @@ import { useDisplay, useDisplayDispatch } from "../context/displayContext";
 import { useProductDispatch } from "../context/productContext";
 import { getProducts } from "../api/productApi";
 import ContractorSection from "../components/ContractorSection";
-import OrderSection from "../components/OrderSection";
+import OrderForm from "../components/OrderForm";
 import Snackbar from "../components/Snackbar";
 
 const LandingPage = () => {
@@ -63,7 +63,7 @@ const LandingPage = () => {
     >
       <ContractorProvider>
         <ContractorSection />
-        <OrderSection />
+        <OrderForm />
       </ContractorProvider>
       <Snackbar alert={alert} onClose={handleClose} />
       {loading && <CircularProgress className="progress__spinner" />}

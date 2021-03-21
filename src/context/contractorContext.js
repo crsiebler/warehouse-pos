@@ -4,25 +4,36 @@ import { useImmerReducer } from "use-immer";
 const ActionTypes = {
   SET_CONTRACTOR: "SET_CONTRACTOR",
   CLOSE: "CLOSE",
+  SHOW_LOADING: "SHOW_LOADING",
+  HIDE_LOADING: "HIDE_LOADING",
 };
 
 const reducer = (draft, action) => {
   switch (action.type) {
     case ActionTypes.SET_CONTRACTOR:
-      draft = action.data;
+      draft.contractor = action.data;
       return draft;
     case ActionTypes.CLOSE:
       draft = initialState;
+      return draft;
+    case ActionTypes.SHOW_LOADING:
+      draft.loading = true;
+      return draft;
+    case ActionTypes.HIDE_LOADING:
+      draft.loading = false;
       return draft;
     default:
   }
 };
 
 const initialState = {
-  id: "",
-  name: "",
-  company: "",
-  discount: 0,
+  contractor: {
+    id: "",
+    name: "",
+    company: "",
+    discount: 0,
+  },
+  loading: false,
 };
 
 const StateContext = React.createContext(initialState);
@@ -61,8 +72,16 @@ export const useContractorDispatch = () => {
     dispatch({ type: ActionTypes.CLOSE });
   }, [dispatch]);
 
-  return React.useMemo(() => ({ setContractor, closeContractor }), [
-    setContractor,
-    closeContractor,
-  ]);
+  const showLoading = React.useCallback(() => {
+    dispatch({ type: ActionTypes.SHOW_LOADING });
+  }, [dispatch]);
+
+  const hideLoading = React.useCallback(() => {
+    dispatch({ type: ActionTypes.HIDE_LOADING });
+  }, [dispatch]);
+
+  return React.useMemo(
+    () => ({ setContractor, closeContractor, showLoading, hideLoading }),
+    [setContractor, closeContractor, showLoading, hideLoading]
+  );
 };
