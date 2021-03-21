@@ -1,19 +1,19 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import { useDisplayDispatch } from "../context/displayContext";
-import { useInvoice } from "../context/invoiceContext";
+import { useInvoiceDispatch } from "../context/invoiceContext";
 
 const ProductQuantityInput = (props) => {
   const { rowIndex, inventory, quantity } = props;
   const { hideTotal, showAlert } = useDisplayDispatch();
-  const { dispatch: dispatchInvoice } = useInvoice();
+  const { removeProduct, setQuantity } = useInvoiceDispatch();
 
   const handleChange = (e) => {
     const { value } = e.target;
-    const data = { rowIndex, quantity: value };
+    const data = { rowIndex, quantity: parseInt(value) };
     if (value < 1) {
       hideTotal();
-      dispatchInvoice({ type: "remove_product", rowIndex });
+      removeProduct(rowIndex);
     } else if (value > inventory) {
       showAlert({
         open: true,
@@ -21,9 +21,8 @@ const ProductQuantityInput = (props) => {
         message: "Not enough in inventory.",
       });
     } else {
-      console.log(data);
       hideTotal();
-      dispatchInvoice({ type: "set_quantity", data });
+      setQuantity(data);
     }
   };
 

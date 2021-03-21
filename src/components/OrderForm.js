@@ -5,7 +5,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import { useDisplay, useDisplayDispatch } from "../context/displayContext";
 import { useContractor } from "../context/contractorContext";
-import { useInvoice } from "../context/invoiceContext";
+import { useInvoice, useInvoiceDispatch } from "../context/invoiceContext";
 import { useProduct, useProductDispatch } from "../context/productContext";
 import { getProducts } from "../api/productApi";
 import { hasDuplicates } from "../utils/orderUtils";
@@ -16,10 +16,11 @@ import Snackbar from "./Snackbar";
 
 const OrderForm = () => {
   const { calculate, alert } = useDisplay();
-  const { hideAlert, hideTotal, showAlert } = useDisplayDispatch();
-  const { state: contractor } = useContractor();
-  const { state: invoice, dispatch: dispatchInvoice } = useInvoice();
+  const contractor = useContractor();
+  const invoice = useInvoice();
   const products = useProduct();
+  const { hideAlert, hideTotal, showAlert } = useDisplayDispatch();
+  const { addProduct } = useInvoiceDispatch();
   const { setProducts } = useProductDispatch();
 
   const handleClose = (event, reason) => {
@@ -33,11 +34,9 @@ const OrderForm = () => {
   const handleAddButton = React.useCallback(
     (e) => {
       e.preventDefault();
-      console.log(products);
-
       if (products.length > 1) {
         hideTotal();
-        dispatchInvoice({ type: "add_product", data: products });
+        addProduct();
       } else {
         getProducts()
           .then(({ data }) => {
@@ -47,7 +46,7 @@ const OrderForm = () => {
               });
               hideTotal();
               setProducts(data);
-              dispatchInvoice({ type: "add_product", data });
+              addProduct();
             } else {
               showAlert({
                 open: true,
@@ -66,7 +65,7 @@ const OrderForm = () => {
           });
       }
     },
-    [products, dispatchInvoice, hideTotal, setProducts, showAlert]
+    [products, hideTotal, addProduct, setProducts, showAlert]
   );
 
   React.useEffect(() => {

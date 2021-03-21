@@ -11,7 +11,6 @@ const ActionTypes = {
 const reducer = (draft, action) => {
   switch (action.type) {
     case ActionTypes.SHOW_TOTAL:
-      console.log("Reducer Show Total");
       draft.calculate = true;
       return draft;
     case ActionTypes.HIDE_TOTAL:

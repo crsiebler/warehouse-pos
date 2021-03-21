@@ -3,14 +3,14 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useProduct } from "../context/productContext";
-import { useInvoice } from "../context/invoiceContext";
+import { useInvoiceDispatch } from "../context/invoiceContext";
 import { NONE_SKU } from "../utils/orderUtils";
 
 const ProductSelect = (props) => {
   const { rowIndex } = props;
-  const { hideTotal } = useDisplayDispatch();
   const products = useProduct();
-  const { dispatch: dispatchInvoice } = useInvoice();
+  const { hideTotal } = useDisplayDispatch();
+  const { removeProduct, setProduct, resetQuantity } = useInvoiceDispatch();
   const [productIndex, setProductIndex] = React.useState(0);
 
   const handleChange = (e) => {
@@ -18,12 +18,12 @@ const ProductSelect = (props) => {
     const product = products[value];
     const data = { product, rowIndex };
     if (product.sku === NONE_SKU) {
-      dispatchInvoice({ type: "remove_product", rowIndex });
+      removeProduct(rowIndex);
     } else {
       setProductIndex(value);
       hideTotal();
-      dispatchInvoice({ type: "set_product", data });
-      dispatchInvoice({ type: "reset_quantity", rowIndex });
+      setProduct(data);
+      resetQuantity(rowIndex);
     }
   };
 

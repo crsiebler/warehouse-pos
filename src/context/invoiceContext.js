@@ -2,53 +2,122 @@ import React from "react";
 import { useImmerReducer } from "use-immer";
 import { DUMMY_PRODUCT } from "../utils/orderUtils";
 
-const initialState = [];
-
-const InvoiceContext = React.createContext({
-  state: initialState,
-  dispatch: () => {},
-});
+const ActionTypes = {
+  CLOSE: "CLOSE",
+  ADD_PRODUCT: "ADD_PRODUCT",
+  SET_PRODUCT: "SET_PRODUCT",
+  REMOVE_PRODUCT: "REMOVE_PRODUCT",
+  SET_QUANTITY: "SET_QUANTITY",
+  RESET_QUANTITY: "RESET_QUANTITY",
+};
 
 const reducer = (draft, action) => {
   switch (action.type) {
-    case "close":
+    case ActionTypes.CLOSE:
       draft = initialState;
       return draft;
-    case "add_product":
+    case ActionTypes.ADD_PRODUCT:
       draft.push(DUMMY_PRODUCT);
       return draft;
-    case "set_product":
+    case ActionTypes.SET_PRODUCT:
       draft[action.data.rowIndex] = {
         ...draft[action.data.rowIndex],
         ...action.data.product,
       };
       return draft;
-    case "remove_product":
-      draft.splice(action.rowIndex, 1);
+    case ActionTypes.REMOVE_PRODUCT:
+      draft.splice(action.data, 1);
       return draft;
-    case "set_quantity":
+    case ActionTypes.SET_QUANTITY:
       draft[action.data.rowIndex].quantity = action.data.quantity;
       return draft;
-    case "reset_quantity":
-      draft[action.rowIndex].quantity = 1;
+    case ActionTypes.RESET_QUANTITY:
+      draft[action.data].quantity = 1;
       return draft;
     default:
   }
 };
 
+const initialState = [];
+
+const StateContext = React.createContext(initialState);
+const DispatchContext = React.createContext(undefined);
+
 export const InvoiceProvider = (props) => {
   const { children } = props;
   const [state, dispatch] = useImmerReducer(reducer, initialState);
-  const value = { state, dispatch };
   return (
-    <InvoiceContext.Provider value={value}>{children}</InvoiceContext.Provider>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        {children}
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 };
 
 export const useInvoice = () => {
-  const context = React.useContext(InvoiceContext);
-  if (context === undefined) {
-    throw new Error("useInvoice must be used within a InvoiceProvider");
+  return React.useContext(StateContext);
+};
+
+export const useInvoiceDispatch = () => {
+  const dispatch = React.useContext(DispatchContext);
+
+  if (dispatch === undefined) {
+    throw new Error("useInvoiceDispatch must be used within a InvoiceProvider");
   }
-  return context;
+
+  const closeInvoice = React.useCallback(() => {
+    dispatch({ type: ActionTypes.CLOSE });
+  }, [dispatch]);
+
+  const addProduct = React.useCallback(() => {
+    dispatch({ type: ActionTypes.ADD_PRODUCT });
+  }, [dispatch]);
+
+  const setProduct = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.SET_PRODUCT, data });
+    },
+    [dispatch]
+  );
+
+  const removeProduct = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.REMOVE_PRODUCT, data });
+    },
+    [dispatch]
+  );
+
+  const setQuantity = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.SET_QUANTITY, data });
+    },
+    [dispatch]
+  );
+
+  const resetQuantity = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.RESET_QUANTITY, data });
+    },
+    [dispatch]
+  );
+
+  return React.useMemo(
+    () => ({
+      closeInvoice,
+      addProduct,
+      setProduct,
+      removeProduct,
+      setQuantity,
+      resetQuantity,
+    }),
+    [
+      closeInvoice,
+      addProduct,
+      setProduct,
+      removeProduct,
+      setQuantity,
+      resetQuantity,
+    ]
+  );
 };

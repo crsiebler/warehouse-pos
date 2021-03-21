@@ -3,13 +3,13 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useContractor } from "../context/contractorContext";
-import { useInvoice } from "../context/invoiceContext";
+import { useInvoiceDispatch } from "../context/invoiceContext";
 import InvoiceDisplay from "./InvoiceDisplay";
 
 const OrderControls = () => {
   const { showTotal, hideTotal, showAlert } = useDisplayDispatch();
   const { dispatch: dispatchContractor } = useContractor();
-  const { dispatch: dispatchInvoice } = useInvoice();
+  const { closeInvoice } = useInvoiceDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ const OrderControls = () => {
         message: "Android not supported.",
       });
     } else {
+      // Print the iframe containing the invoice
       const frame = document.getElementById("invoiceIframe");
       const contentWindow = frame.contentWindow;
       const innerHTML = frame.innerHTML;
@@ -44,7 +45,7 @@ const OrderControls = () => {
     e.preventDefault();
     hideTotal();
     dispatchContractor({ type: "close" });
-    dispatchInvoice({ type: "close" });
+    closeInvoice();
   };
 
   return (
