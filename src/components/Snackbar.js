@@ -30,7 +30,7 @@ Snackbar.propTypes = {
 Snackbar.defaultProps = {
   alert: { open: false, severity: "info", message: "" },
   onClose: () => {},
-  duration: 6000,
+  duration: 3000,
 };
 
 export default Snackbar;

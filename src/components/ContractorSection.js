@@ -13,7 +13,12 @@ import ContractorDisplay from "./ContractorDisplay";
 const ContractorSection = () => {
   const contractor = useContractor();
   const { setContractor } = useContractorDispatch();
-  const { showAlert, hideTotal } = useDisplayDispatch();
+  const {
+    showAlert,
+    hideTotal,
+    showLoading,
+    hideLoading,
+  } = useDisplayDispatch();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -23,6 +28,7 @@ const ContractorSection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    showLoading();
     getContractor(contractor)
       .then(({ data }) => {
         showAlert({
@@ -40,6 +46,9 @@ const ContractorSection = () => {
           message: "Fail to retrieve Contractor",
         });
         console.log(`Error: ${JSON.stringify(error)}`);
+      })
+      .finally(() => {
+        hideLoading();
       });
   };
 

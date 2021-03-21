@@ -6,6 +6,8 @@ const ActionTypes = {
   HIDE_TOTAL: "HIDE_TOTAL",
   SHOW_ALERT: "SHOW_ALERT",
   HIDE_ALERT: "HIDE_ALERT",
+  SHOW_LOADING: "SHOW_LOADING",
+  HIDE_LOADING: "HIDE_LOADING",
 };
 
 const reducer = (draft, action) => {
@@ -22,6 +24,12 @@ const reducer = (draft, action) => {
     case ActionTypes.HIDE_ALERT:
       draft.alert.open = false;
       return draft;
+    case ActionTypes.SHOW_LOADING:
+      draft.loading = true;
+      return draft;
+    case ActionTypes.HIDE_LOADING:
+      draft.loading = false;
+      return draft;
     default:
   }
 };
@@ -29,6 +37,7 @@ const reducer = (draft, action) => {
 const initialState = {
   calculate: false,
   alert: { open: false, severity: "info", message: "" },
+  loading: false,
 };
 
 const StateContext = React.createContext(initialState);
@@ -75,13 +84,23 @@ export const useDisplayDispatch = () => {
     dispatch({ type: ActionTypes.HIDE_ALERT });
   }, [dispatch]);
 
+  const showLoading = React.useCallback(() => {
+    dispatch({ type: ActionTypes.SHOW_LOADING });
+  }, [dispatch]);
+
+  const hideLoading = React.useCallback(() => {
+    dispatch({ type: ActionTypes.HIDE_LOADING });
+  }, [dispatch]);
+
   return React.useMemo(
     () => ({
       showTotal,
       hideTotal,
       showAlert,
       hideAlert,
+      showLoading,
+      hideLoading,
     }),
-    [showTotal, hideTotal, showAlert, hideAlert]
+    [showTotal, hideTotal, showAlert, hideAlert, showLoading, hideLoading]
   );
 };

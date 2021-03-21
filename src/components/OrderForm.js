@@ -6,67 +6,32 @@ import TableBody from "@material-ui/core/TableBody";
 import { useDisplay, useDisplayDispatch } from "../context/displayContext";
 import { useContractor } from "../context/contractorContext";
 import { useInvoice, useInvoiceDispatch } from "../context/invoiceContext";
-import { useProduct, useProductDispatch } from "../context/productContext";
-import { getProducts } from "../api/productApi";
+import { useProduct } from "../context/productContext";
 import { hasDuplicates } from "../utils/orderUtils";
 import OrderTableHeader from "./OrderTableHeader";
 import ProductRow from "./ProductRow";
 import OrderTotals from "./OrderTotals";
-import Snackbar from "./Snackbar";
 
 const OrderForm = () => {
-  const { calculate, alert } = useDisplay();
+  const { calculate } = useDisplay();
   const contractor = useContractor();
   const invoice = useInvoice();
   const products = useProduct();
-  const { hideAlert, hideTotal, showAlert } = useDisplayDispatch();
+  const { hideTotal, showAlert, hideAlert } = useDisplayDispatch();
   const { addProduct } = useInvoiceDispatch();
-  const { setProducts } = useProductDispatch();
 
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
+  const handleAddButton = (e) => {
+    if (products.length > 1) {
+      hideTotal();
+      addProduct();
+    } else {
+      showAlert({
+        open: true,
+        severity: "warning",
+        message: "No products in system",
+      });
     }
-
-    hideAlert();
   };
-
-  const handleAddButton = React.useCallback(
-    (e) => {
-      e.preventDefault();
-      if (products.length > 1) {
-        hideTotal();
-        addProduct();
-      } else {
-        getProducts()
-          .then(({ data }) => {
-            if (data.length > 0) {
-              data.sort((a, b) => {
-                return a.sku.localeCompare(b.sku);
-              });
-              hideTotal();
-              setProducts(data);
-              addProduct();
-            } else {
-              showAlert({
-                open: true,
-                severity: "warning",
-                message: "No products in system",
-              });
-            }
-          })
-          .catch((error) => {
-            showAlert({
-              open: true,
-              severity: "error",
-              message: "Fail to retrieve Products",
-            });
-            console.log(`Error: ${JSON.stringify(error)}`);
-          });
-      }
-    },
-    [products, hideTotal, addProduct, setProducts, showAlert]
-  );
 
   React.useEffect(() => {
     // Ensure the Invoice is valid, display alert if not
@@ -114,7 +79,6 @@ const OrderForm = () => {
           </TableBody>
         )}
       </Table>
-      <Snackbar alert={alert} onClose={handleClose} />
     </TableContainer>
   );
 };

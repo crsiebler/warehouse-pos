@@ -3,6 +3,10 @@
     background-color: #36454f;
     min-height: 100vh;
     padding-top: 10px;
+
+    &--loading {
+      filter: brightness(50%);
+    }
   }
 
   .contractor {
@@ -49,5 +53,11 @@
   .order__form__table__product__input {
     padding: 5px 10px;
     min-width: 10ch;
+  }
+
+  .progress__spinner {
+    position: absolute;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
   }
 }
