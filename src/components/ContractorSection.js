@@ -1,20 +1,24 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import { useContractor } from "../context/contractorContext";
+import {
+  useContractor,
+  useContractorDispatch,
+} from "../context/contractorContext";
 import { useDisplayDispatch } from "../context/displayContext";
 import { getContractor } from "../api/contractorApi";
 import ContractorInput from "./ContactorInput";
 import ContractorDisplay from "./ContractorDisplay";
 
 const ContractorSection = () => {
-  const { state: contractor, dispatch: dispatchContractor } = useContractor();
+  const contractor = useContractor();
+  const { setContractor } = useContractorDispatch();
   const { showAlert, hideTotal } = useDisplayDispatch();
 
   const handleChange = (e) => {
     const { id, value } = e.target;
     const data = { ...contractor, [id]: value };
-    dispatchContractor({ type: "set_contractor", data });
+    setContractor(data);
   };
 
   const handleSubmit = (e) => {
@@ -27,7 +31,7 @@ const ContractorSection = () => {
           message: "Contractor Retrieved",
         });
         hideTotal();
-        dispatchContractor({ type: "set_contractor", data });
+        setContractor(data);
       })
       .catch((error) => {
         showAlert({

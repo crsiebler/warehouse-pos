@@ -1,6 +1,23 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
 
+const ActionTypes = {
+  SET_CONTRACTOR: "SET_CONTRACTOR",
+  CLOSE: "CLOSE",
+};
+
+const reducer = (draft, action) => {
+  switch (action.type) {
+    case ActionTypes.SET_CONTRACTOR:
+      draft = action.data;
+      return draft;
+    case ActionTypes.CLOSE:
+      draft = initialState;
+      return draft;
+    default:
+  }
+};
+
 const initialState = {
   id: "",
   name: "",
@@ -8,38 +25,44 @@ const initialState = {
   discount: 0,
 };
 
-const ContractorContext = React.createContext({
-  state: initialState,
-  dispatch: () => {},
-});
+const StateContext = React.createContext(initialState);
+const DispatchContext = React.createContext(undefined);
 
-const reducer = (draft, action) => {
-  switch (action.type) {
-    case "set_contractor":
-      draft = action.data;
-      return draft;
-    case "close":
-      draft = initialState;
-      return draft;
-    default:
-  }
-};
-
-export const ContractorProvider = (props) => {
-  const { children } = props;
+export const ContractorProvider = ({ children }) => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
-  const value = { state, dispatch };
   return (
-    <ContractorContext.Provider value={value}>
-      {children}
-    </ContractorContext.Provider>
+    <StateContext.Provider value={state}>
+      <DispatchContext.Provider value={dispatch}>
+        {children}
+      </DispatchContext.Provider>
+    </StateContext.Provider>
   );
 };
 
 export const useContractor = () => {
-  const context = React.useContext(ContractorContext);
-  if (context === undefined) {
+  return React.useContext(StateContext);
+};
+
+export const useContractorDispatch = () => {
+  const dispatch = React.useContext(DispatchContext);
+
+  if (dispatch === undefined) {
     throw new Error("useContractor must be used within a ContractorProvider");
   }
-  return context;
+
+  const setContractor = React.useCallback(
+    (data) => {
+      dispatch({ type: ActionTypes.SET_CONTRACTOR, data });
+    },
+    [dispatch]
+  );
+
+  const closeContractor = React.useCallback(() => {
+    dispatch({ type: ActionTypes.CLOSE });
+  }, [dispatch]);
+
+  return React.useMemo(() => ({ setContractor, closeContractor }), [
+    setContractor,
+    closeContractor,
+  ]);
 };
