@@ -29,7 +29,7 @@ const OrderTotals = ({ invoice }) => {
       <TableRow>
         <TableCell>Discount</TableCell>
         <TableCell align="right">{discountPercentage}</TableCell>
-        <TableCell align="right" className="order__table_cell--discount">
+        <TableCell align="right" className="red">
           {discountFormatted}
         </TableCell>
       </TableRow>
