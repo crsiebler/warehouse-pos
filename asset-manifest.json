@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/warehouse-pos/static/css/main.3b4b16ae.chunk.css",
-    "main.js": "/warehouse-pos/static/js/main.6d565d95.chunk.js",
-    "main.js.map": "/warehouse-pos/static/js/main.6d565d95.chunk.js.map",
+    "main.css": "/warehouse-pos/static/css/main.f6b8ca74.chunk.css",
+    "main.js": "/warehouse-pos/static/js/main.770cd577.chunk.js",
+    "main.js.map": "/warehouse-pos/static/js/main.770cd577.chunk.js.map",
     "runtime-main.js": "/warehouse-pos/static/js/runtime-main.5f1ec80d.js",
     "runtime-main.js.map": "/warehouse-pos/static/js/runtime-main.5f1ec80d.js.map",
     "static/js/2.a9c8453d.chunk.js": "/warehouse-pos/static/js/2.a9c8453d.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.c00a02a2.chunk.js": "/warehouse-pos/static/js/3.c00a02a2.chunk.js",
     "static/js/3.c00a02a2.chunk.js.map": "/warehouse-pos/static/js/3.c00a02a2.chunk.js.map",
     "index.html": "/warehouse-pos/index.html",
-    "static/css/main.3b4b16ae.chunk.css.map": "/warehouse-pos/static/css/main.3b4b16ae.chunk.css.map",
+    "static/css/main.f6b8ca74.chunk.css.map": "/warehouse-pos/static/css/main.f6b8ca74.chunk.css.map",
     "static/js/2.a9c8453d.chunk.js.LICENSE.txt": "/warehouse-pos/static/js/2.a9c8453d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.5f1ec80d.js",
     "static/js/2.a9c8453d.chunk.js",
-    "static/css/main.3b4b16ae.chunk.css",
-    "static/js/main.6d565d95.chunk.js"
+    "static/css/main.f6b8ca74.chunk.css",
+    "static/js/main.770cd577.chunk.js"
   ]
 }
