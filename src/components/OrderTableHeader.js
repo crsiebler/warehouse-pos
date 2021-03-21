@@ -1,4 +1,5 @@
 import React from "react";
+import Skeleton from "react-loading-skeleton";
 import TableRow from "@material-ui/core/TableRow";
 import TableHead from "@material-ui/core/TableHead";
 import TableCell from "@material-ui/core/TableCell";
@@ -13,8 +14,9 @@ const OrderTableHeader = () => {
   console.log("RENDERED: OrderTableHeader");
   const { addProduct } = useInvoiceDispatch();
   const { hideTotal } = useDisplayDispatch();
-  const { showAlert /*, showLoading, hideLoading */ } = useDisplayDispatch();
+  const { showAlert } = useDisplayDispatch();
   const { setProducts } = useProductDispatch();
+  const [loading, setLoading] = React.useState(false);
 
   const handleAddButton = (e) => {
     e.preventDefault();
@@ -23,7 +25,7 @@ const OrderTableHeader = () => {
   };
 
   React.useEffect(() => {
-    // showLoading();
+    setLoading(true);
     getProducts()
       .then(({ data }) => {
         if (data.length > 0) {
@@ -49,7 +51,7 @@ const OrderTableHeader = () => {
         console.log(`Error: ${JSON.stringify(error)}`);
       })
       .finally(() => {
-        // hideLoading();
+        setLoading(false);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -58,14 +60,18 @@ const OrderTableHeader = () => {
     <TableHead>
       <TableRow>
         <TableCell align="center">
-          <Fab
-            size="small"
-            color="primary"
-            aria-label="add to invoice"
-            onClick={handleAddButton}
-          >
-            <AddShoppingCartIcon />
-          </Fab>
+          {loading ? (
+            <Skeleton circle={true} height={35} width={35} />
+          ) : (
+            <Fab
+              size="small"
+              color="primary"
+              aria-label="add to invoice"
+              onClick={handleAddButton}
+            >
+              <AddShoppingCartIcon />
+            </Fab>
+          )}
         </TableCell>
         <TableCell align="center" colSpan={3}>
           Order Form

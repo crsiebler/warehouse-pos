@@ -17,6 +17,12 @@ const DATE_FORMATION_OPTIONS = {
   second: "numeric",
   hour12: false,
 };
+const DUMMY_CONTRACTOR = {
+  id: "",
+  name: "",
+  company: "",
+  discount: 0,
+};
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -140,6 +146,7 @@ const printInvoice = () => {
 export {
   NONE_SKU,
   DUMMY_PRODUCT,
+  DUMMY_CONTRACTOR,
   ccyFormat,
   calculateInvoice,
   formatTotals,

@@ -1,7 +1,6 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   useContractor,
   useContractorDispatch,
@@ -10,6 +9,8 @@ import { useDisplayDispatch } from "../context/displayContext";
 import { getContractor } from "../api/contractorApi";
 import ContractorInput from "./ContactorInput";
 import ContractorDisplay from "./ContractorDisplay";
+import ContractorSkelton from "./ContractorSkeleton";
+import { DUMMY_CONTRACTOR } from "../utils/orderUtils";
 
 const ContractorSection = () => {
   const { contractor, loading } = useContractor();
@@ -37,6 +38,7 @@ const ContractorSection = () => {
         setContractor(data);
       })
       .catch((error) => {
+        setContractor(DUMMY_CONTRACTOR);
         showAlert({
           open: true,
           severity: "error",
@@ -58,7 +60,7 @@ const ContractorSection = () => {
           value={contractor.id}
         />
         {loading ? (
-          <CircularProgress />
+          <ContractorSkelton />
         ) : (
           <ContractorDisplay contractor={contractor} />
         )}

@@ -1,5 +1,6 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
+import { DUMMY_CONTRACTOR } from "../utils/orderUtils";
 
 const ActionTypes = {
   SET_CONTRACTOR: "SET_CONTRACTOR",
@@ -27,12 +28,7 @@ const reducer = (draft, action) => {
 };
 
 const initialState = {
-  contractor: {
-    id: "",
-    name: "",
-    company: "",
-    discount: 0,
-  },
+  contractor: DUMMY_CONTRACTOR,
   loading: false,
 };
 
