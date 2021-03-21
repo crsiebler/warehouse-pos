@@ -4,7 +4,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useProduct } from "../context/productContext";
 import { useInvoice } from "../context/invoiceContext";
-import { EMPTY_PRODUCT } from "../utils/orderUtils";
+import { NONE_SKU } from "../utils/orderUtils";
 
 const ProductSelect = (props) => {
   const { rowIndex } = props;
@@ -17,7 +17,7 @@ const ProductSelect = (props) => {
     const { value } = e.target;
     const product = products[value];
     const data = { product, rowIndex };
-    if (product.sku === EMPTY_PRODUCT) {
+    if (product.sku === NONE_SKU) {
       dispatchInvoice({ type: "remove_product", rowIndex });
     } else {
       setProductIndex(value);

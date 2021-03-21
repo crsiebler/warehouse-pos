@@ -1,5 +1,6 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
+import { DUMMY_PRODUCT } from "../utils/orderUtils";
 
 const initialState = [];
 
@@ -14,7 +15,7 @@ const reducer = (draft, action) => {
       draft = initialState;
       return draft;
     case "add_product":
-      draft.push({ ...action.data[0], quantity: 1 });
+      draft.push(DUMMY_PRODUCT);
       return draft;
     case "set_product":
       draft[action.data.rowIndex] = {

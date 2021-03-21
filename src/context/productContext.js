@@ -1,6 +1,6 @@
 import React from "react";
 import { useImmerReducer } from "use-immer";
-import { EMPTY_PRODUCT } from "../utils/orderUtils";
+import { DUMMY_PRODUCT } from "../utils/orderUtils";
 
 const ActionTypes = {
   SET_PRODUCTS: "SET_PRODUCTS",
@@ -19,15 +19,7 @@ const reducer = (draft, action) => {
   }
 };
 
-const initialState = [
-  {
-    id: "",
-    name: "",
-    price: 0,
-    sku: EMPTY_PRODUCT,
-    inventory: 1,
-  },
-];
+const initialState = [DUMMY_PRODUCT];
 
 const StateContext = React.createContext(initialState);
 const DispatchContext = React.createContext(undefined);

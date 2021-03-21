@@ -1,5 +1,13 @@
 const TAX_RATE = 0.085;
-const EMPTY_PRODUCT = "*None*";
+const NONE_SKU = "*None*";
+const DUMMY_PRODUCT = {
+  id: "",
+  sku: NONE_SKU,
+  name: "",
+  price: 0,
+  quantity: 1,
+  inventory: 1,
+};
 const DATE_FORMATION_OPTIONS = {
   year: "numeric",
   month: "numeric",
@@ -66,7 +74,7 @@ const hasDuplicates = (invoice) => {
   if (cartSize > 1) {
     for (let i = 0; i < cartSize; i++) {
       // Skip the products in cart that have not been selected yet
-      if (invoice[i].sku === EMPTY_PRODUCT) {
+      if (invoice[i].sku === NONE_SKU) {
         continue;
       } else if (map[invoice[i].sku]) {
         // Cart contains entry with this element as key
@@ -86,7 +94,8 @@ const formatDate = (date, options = DATE_FORMATION_OPTIONS) => {
 };
 
 export {
-  EMPTY_PRODUCT,
+  NONE_SKU,
+  DUMMY_PRODUCT,
   ccyFormat,
   calculateInvoice,
   formatTotals,
