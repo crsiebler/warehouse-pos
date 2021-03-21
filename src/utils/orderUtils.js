@@ -1,5 +1,14 @@
 const TAX_RATE = 0.085;
 const EMPTY_PRODUCT = "*None*";
+const DATE_FORMATION_OPTIONS = {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric",
+  hour12: false,
+};
 
 const formatter = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -72,10 +81,15 @@ const hasDuplicates = (invoice) => {
   return result;
 };
 
+const formatDate = (date, options = DATE_FORMATION_OPTIONS) => {
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};
+
 export {
   EMPTY_PRODUCT,
   ccyFormat,
   calculateInvoice,
   formatTotals,
   hasDuplicates,
+  formatDate,
 };

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./styles/main.css";
 import { StylesProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { DisplayProvider } from "./context/displayContext";
