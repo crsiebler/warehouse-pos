@@ -7,34 +7,37 @@ import { useInvoice } from "../context/invoiceContext";
 import InvoiceDisplay from "./InvoiceDisplay";
 
 const OrderControls = () => {
-  const { showTotal, hideTotal } = useDisplayDispatch();
+  const { showTotal, hideTotal, showAlert } = useDisplayDispatch();
   const { dispatch: dispatchContractor } = useContractor();
   const { dispatch: dispatchInvoice } = useInvoice();
 
-  const handlePrint = () => {
-    // const media = document.getElementById("invoiceContents").innerHTML;
-    // const frame = document.getElementById("invoiceIframe").contentWindow;
-    // console.log(media);
-    // frame.document.open();
-    // frame.document.write(media);
-    // frame.document.close();
-    // frame.focus();
-    // frame.print();
-
-    const frame = document.getElementById("invoiceIframe");
-    const contentWindow = frame.contentWindow;
-    const innerHTML = frame.innerHTML;
-    console.log(innerHTML);
-    contentWindow.document.open();
-    contentWindow.document.write(innerHTML);
-    contentWindow.document.close();
-    contentWindow.focus();
-    contentWindow.print();
-  };
-
-  const handleCalculate = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     showTotal();
+  };
+
+  const handlePrint = (e) => {
+    e.preventDefault();
+    const ua = navigator.userAgent.toLowerCase();
+    const isAndroid = ua.indexOf("android") > -1;
+
+    // TODO window.print() not functional on Android devices.
+    if (isAndroid) {
+      showAlert({
+        open: true,
+        severity: "warning",
+        message: "Android not supported.",
+      });
+    } else {
+      const frame = document.getElementById("invoiceIframe");
+      const contentWindow = frame.contentWindow;
+      const innerHTML = frame.innerHTML;
+      contentWindow.document.open();
+      contentWindow.document.write(innerHTML);
+      contentWindow.document.close();
+      contentWindow.focus();
+      contentWindow.print();
+    }
   };
 
   const handleClose = (e) => {
@@ -54,7 +57,7 @@ const OrderControls = () => {
             variant="contained"
             color="primary"
             className="order__controls__button"
-            onClick={handleCalculate}
+            onClick={handleSubmit}
           >
             Calculate
           </Button>
