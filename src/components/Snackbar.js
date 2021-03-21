@@ -6,6 +6,7 @@ import Alert from "./Alert";
 const Snackbar = ({ alert, onClose, duration, ...rest }) => (
   <MuiSnackbar
     open={alert.open}
+    anchorOrigin={{ vertical: "top", horizontal: "right" }}
     autoHideDuration={duration}
     onClose={onClose}
     {...rest}
