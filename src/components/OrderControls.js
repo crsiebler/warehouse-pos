@@ -42,15 +42,14 @@ const OrderControls = () => {
         severity: "warning",
         message: "Android not supported.",
       });
+    } else if (isMobile) {
+      showAlert({
+        open: true,
+        severity: "warning",
+        message: "Mobile not supported.",
+      });
     } else if (validate(invoice, showAlert)) {
       setPrinting(true);
-
-      // Mobile has security checks to prevent automated printing, so print now.
-      if (isMobile) {
-        setTimeout(() => {
-          printInvoice();
-        }, 1000);
-      }
     }
   };
 

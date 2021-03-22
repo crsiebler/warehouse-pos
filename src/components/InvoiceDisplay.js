@@ -41,7 +41,7 @@ const InvoiceDisplay = ({ contractor, invoice }) => {
           .left { text-align: left; }
           .center { text-align: center; }
           .right { text-align: right; }
-          .discount { color: red; }
+          .red { color: red; }
           .bold { font-weight: bold; }
           .blank { height: 1cm; }
         `}</style>
@@ -100,7 +100,7 @@ const InvoiceDisplay = ({ contractor, invoice }) => {
             <tr>
               <td className="bold">Discount</td>
               <td align="right">{discountPercentage}</td>
-              <td align="right" className="bold discount">
+              <td align="right" className="bold red">
                 {discountFormatted}
               </td>
             </tr>
