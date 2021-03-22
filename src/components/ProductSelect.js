@@ -32,7 +32,7 @@ const ProductSelect = ({ rowIndex }) => {
   return (
     <Select
       variant="outlined"
-      inputProps={{ className: "order__form__table__product__select" }}
+      inputProps={{ className: "table__select" }}
       value={productIndex}
       onChange={handleChange}
     >

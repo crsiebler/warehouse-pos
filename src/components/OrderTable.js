@@ -10,12 +10,11 @@ import ProductRow from "./ProductRow";
 import OrderTotals from "./OrderTotals";
 
 const OrderTable = () => {
-  console.log("RENDERED: OrderTable");
   const { calculate } = useDisplay();
   const invoice = useInvoice();
 
   return (
-    <TableContainer component={Paper} elevation={3} className="order__form">
+    <TableContainer component={Paper} elevation={3} className="table">
       <Table aria-label="order product">
         <OrderTableHeader />
         {invoice.length > 0 && (

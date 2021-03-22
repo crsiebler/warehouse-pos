@@ -11,7 +11,6 @@ import { useInvoiceDispatch } from "../context/invoiceContext";
 import { useProductDispatch } from "../context/productContext";
 
 const OrderTableHeader = () => {
-  console.log("RENDERED: OrderTableHeader");
   const { addProduct } = useInvoiceDispatch();
   const { hideTotal } = useDisplayDispatch();
   const { showAlert } = useDisplayDispatch();

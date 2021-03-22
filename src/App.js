@@ -9,8 +9,8 @@ import LandingPage from "./pages/LandingPage";
 function App() {
   return (
     <StylesProvider injectFirst>
+      <CssBaseline />
       <SkeletonTheme color="#dcdcf5" highlightColor="#c6c6dc">
-        <CssBaseline />
         <DisplayProvider>
           <ProductProvider>
             <LandingPage />

@@ -7,7 +7,7 @@ const OrderButton = ({ type, variant, color, onClick, children }) => (
     type={type}
     variant={variant}
     color={color}
-    className="order__controls__button"
+    className="controls__button"
     onClick={onClick}
   >
     {children}

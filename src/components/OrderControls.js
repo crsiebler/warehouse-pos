@@ -74,15 +74,16 @@ const OrderControls = () => {
 
   return (
     <>
-      <Box display="flex" flexDirection="column" className="order__controls">
+      <Box display="flex" flexDirection="column" className="controls">
         <Box p={0.5}>
           <OrderButton onClick={handleSubmit}>Calculate</OrderButton>
         </Box>
-        <Box p={0.5} flexGrow={1}>
+        <Box p={0.5}>
           <OrderButton type="print" onClick={handlePrint}>
             Print
           </OrderButton>
         </Box>
+        <Box flexGrow={1} />
         <Box p={0.5}>
           <OrderButton type="clear" color="secondary" onClick={handleClose}>
             Close
@@ -102,12 +103,12 @@ const OrderControls = () => {
             <Typography variant="h6">Are you sure?</Typography>
           </Grid>
           <Grid item container direction="row" spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <OrderButton color="default" onClick={handleModalClose}>
                 Cancel
               </OrderButton>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <OrderButton onClick={handleConfirm}>Confirm</OrderButton>
             </Grid>
           </Grid>

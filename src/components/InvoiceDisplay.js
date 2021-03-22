@@ -8,7 +8,6 @@ import {
 } from "../utils/orderUtils";
 
 const InvoiceDisplay = ({ contractor, invoice }) => {
-  console.log("RENDERING: InvoiceDisplay");
   const now = formatDate(new Date());
 
   const {

@@ -1,6 +1,9 @@
 @media screen {
-  .landing {
+  body {
     background-color: #36454f;
+  }
+
+  .landing {
     min-height: 100vh;
     padding-top: 10px;
 
@@ -27,45 +30,42 @@
     }
   }
 
-  .order {
-    &__controls {
-      height: 100%;
+  .controls {
+    height: 100%;
 
-      &__button {
-        width: 100%;
+    &__button {
+      width: 100%;
+    }
+  }
 
-        // &:last-child {
-        //   flex-grow: 1;
-        // }
-      }
+  .table {
+    background-color: beige;
+
+    &__select {
+      padding: 5px 10px;
+      text-overflow: ellipsis;
+      max-width: 10ch;
     }
 
-    &__form {
-      background-color: beige;
-      overflow: hidden;
+    &__input {
+      padding: 5px 10px;
+      min-width: 10ch;
+    }
 
-      &__table__product__select {
-        padding: 5px 10px;
-        text-overflow: ellipsis;
-        max-width: 10ch;
-      }
-
-      &__table__product__input {
-        padding: 5px 10px;
-        min-width: 10ch;
-      }
+    &__cell {
+      min-width: 11ch;
     }
   }
 
   .modal {
-    max-width: 400px;
+    max-width: 300px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: beige;
     box-shadow: 10px 5px 5px black;
-    padding: 20px 40px 30px;
+    padding: 20px 10px;
     border-radius: 5px;
     outline: none;
   }

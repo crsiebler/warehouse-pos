@@ -3,8 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useInvoiceDispatch } from "../context/invoiceContext";
 
-const ProductQuantityInput = (props) => {
-  const { rowIndex, inventory, quantity } = props;
+const ProductQuantityInput = ({ rowIndex, inventory, quantity }) => {
   const { hideTotal, showAlert } = useDisplayDispatch();
   const { removeProduct, setQuantity } = useInvoiceDispatch();
 
@@ -12,6 +11,7 @@ const ProductQuantityInput = (props) => {
     const { value } = e.target;
     const data = { rowIndex, quantity: parseInt(value) };
     if (value < 1) {
+      // Less than
       hideTotal();
       removeProduct(rowIndex);
     } else if (value > inventory) {
@@ -26,8 +26,6 @@ const ProductQuantityInput = (props) => {
     }
   };
 
-  console.log(`RENDERED: ProductQuantityInput (${rowIndex})`);
-
   return (
     <TextField
       type="number"
@@ -35,8 +33,8 @@ const ProductQuantityInput = (props) => {
       label={`Avail: ${inventory}`}
       inputProps={{
         min: 0,
-        max: inventory + 1,
-        className: "order__form__table__product__input",
+        max: inventory + 1, // Add 1 so the onChange handler is triggered
+        className: "table__input",
       }}
       onChange={handleChange}
       value={quantity}

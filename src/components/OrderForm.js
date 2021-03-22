@@ -4,23 +4,19 @@ import { InvoiceProvider } from "../context/invoiceContext";
 import OrderControls from "./OrderControls";
 import OrderTable from "./OrderTable";
 
-const OrderForm = () => {
-  console.log("RENDERED: OrderForm");
-
-  return (
-    <InvoiceProvider>
-      <form>
-        <Grid container justify="space-between" alignItems="center" spacing={2}>
-          <Grid item md={4} xs={12}>
-            <OrderControls />
-          </Grid>
-          <Grid item md={8} xs={12}>
-            <OrderTable />
-          </Grid>
+const OrderForm = () => (
+  <InvoiceProvider>
+    <form>
+      <Grid container justify="center" alignItems="stretch" spacing={2}>
+        <Grid item md={4} xs={12}>
+          <OrderControls />
         </Grid>
-      </form>
-    </InvoiceProvider>
-  );
-};
+        <Grid item md={8} xs={12}>
+          <OrderTable />
+        </Grid>
+      </Grid>
+    </form>
+  </InvoiceProvider>
+);
 
 export default OrderForm;
