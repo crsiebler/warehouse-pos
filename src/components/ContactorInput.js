@@ -5,24 +5,29 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
 const ContractorInput = ({ value, onChange, onSubmit }) => (
-  <form onSubmit={onSubmit} className="contractor__form">
-    <Grid container justify="flex-start" alignItems="center">
-      <Grid item xs={4}>
-        <Typography variant="subtitle1">Contactor ID:</Typography>
-      </Grid>
-      <Grid item xs={8}>
-        <TextField
-          id="id"
-          variant="outlined"
-          autoComplete="off"
-          inputProps={{ className: "contractor__form__input" }}
-          value={value}
-          onChange={onChange}
-          required
-        />
-      </Grid>
+  <Grid
+    container
+    component="form"
+    onSubmit={onSubmit}
+    className="contractor__form"
+    justify="flex-start"
+    alignItems="center"
+  >
+    <Grid item xs={4}>
+      <Typography variant="subtitle1">Contactor ID:</Typography>
     </Grid>
-  </form>
+    <Grid item xs={8}>
+      <TextField
+        id="id"
+        variant="outlined"
+        autoComplete="off"
+        inputProps={{ className: "contractor__form__input" }}
+        value={value}
+        onChange={onChange}
+        required
+      />
+    </Grid>
+  </Grid>
 );
 
 ContractorInput.propTypes = {

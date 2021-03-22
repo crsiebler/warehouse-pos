@@ -62,7 +62,8 @@ const OrderControls = () => {
     setModalOpen(false);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (e) => {
+    e.preventDefault();
     setModalOpen(false);
     hideTotal();
     closeContractor();
@@ -76,14 +77,16 @@ const OrderControls = () => {
     // Put printing in useEffect so the iframe is only rendered when desired.
     if (printing && !isMobile) {
       printInvoice();
-      setPrinting(false);
     }
+
+    setPrinting(false);
   }, [printing]);
 
   return (
     <>
       <Box display="flex" flexDirection="column" className="controls">
         <Button
+          type="submit"
           variant="contained"
           color="primary"
           onClick={handleSubmit}

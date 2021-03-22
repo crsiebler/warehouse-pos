@@ -6,16 +6,20 @@ import OrderTable from "./OrderTable";
 
 const OrderForm = () => (
   <InvoiceProvider>
-    <form>
-      <Grid container justify="center" alignItems="stretch" spacing={2}>
-        <Grid item md={4} xs={12}>
-          <OrderControls />
-        </Grid>
-        <Grid item md={8} xs={12}>
-          <OrderTable />
-        </Grid>
+    <Grid
+      container
+      component="form"
+      justify="center"
+      alignItems="stretch"
+      spacing={2}
+    >
+      <Grid item md={4} xs={12}>
+        <OrderControls />
       </Grid>
-    </form>
+      <Grid item md={8} xs={12}>
+        <OrderTable />
+      </Grid>
+    </Grid>
   </InvoiceProvider>
 );
 

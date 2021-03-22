@@ -8,9 +8,10 @@ import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart";
 import { getProducts } from "../api/productApi";
 import { useDisplayDispatch } from "../context/displayContext";
 import { useInvoiceDispatch } from "../context/invoiceContext";
-import { useProductDispatch } from "../context/productContext";
+import { useProduct, useProductDispatch } from "../context/productContext";
 
 const OrderTableHeader = () => {
+  const products = useProduct();
   const { addProduct } = useInvoiceDispatch();
   const { hideTotal } = useDisplayDispatch();
   const { showAlert } = useDisplayDispatch();
@@ -25,33 +26,37 @@ const OrderTableHeader = () => {
 
   React.useEffect(() => {
     setLoading(true);
-    getProducts()
-      .then(({ data }) => {
-        if (data.length > 0) {
-          data.sort((a, b) => {
-            return a.sku.localeCompare(b.sku);
-          });
-          hideTotal();
-          setProducts(data);
-        } else {
+
+    // Check if products are already loaded. DUMMY_PRODUCT is set on initialization
+    if (products.length < 2) {
+      getProducts()
+        .then(({ data }) => {
+          if (data.length > 0) {
+            data.sort((a, b) => {
+              return a.sku.localeCompare(b.sku);
+            });
+            hideTotal();
+            setProducts(data);
+          } else {
+            showAlert({
+              open: true,
+              severity: "warning",
+              message: "No products in system",
+            });
+          }
+        })
+        .catch((error) => {
           showAlert({
             open: true,
-            severity: "warning",
-            message: "No products in system",
+            severity: "error",
+            message: "Fail to retrieve Products",
           });
-        }
-      })
-      .catch((error) => {
-        showAlert({
-          open: true,
-          severity: "error",
-          message: "Fail to retrieve Products",
+          console.log(`Error: ${JSON.stringify(error)}`);
+        })
+        .finally(() => {
+          setLoading(false);
         });
-        console.log(`Error: ${JSON.stringify(error)}`);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -7,41 +7,41 @@ import Modal from "./Modal";
 
 const ConfirmModal = ({ open, onClose, onConfirm }) => (
   <Modal open={open} handleClose={onClose}>
-    <form onSubmit={onConfirm}>
-      <Grid
-        container
-        direction="column"
-        className="modal"
-        alignItems="center"
-        spacing={2}
-      >
-        <Grid item>
-          <Typography variant="h6">Are you sure?</Typography>
+    <Grid
+      container
+      component="form"
+      onSubmit={onConfirm}
+      direction="column"
+      className="modal"
+      alignItems="center"
+      spacing={2}
+    >
+      <Grid item>
+        <Typography variant="h6">Are you sure?</Typography>
+      </Grid>
+      <Grid item container direction="row" spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Button
+            onClick={onClose}
+            variant="contained"
+            className="modal__button"
+          >
+            Cancel
+          </Button>
         </Grid>
-        <Grid item container direction="row" spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Button
-              onClick={onClose}
-              variant="contained"
-              className="modal__button"
-            >
-              Cancel
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              className="modal__button"
-              onClick={onConfirm}
-            >
-              Confirm
-            </Button>
-          </Grid>
+        <Grid item xs={12} md={6}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className="modal__button"
+            onClick={onConfirm}
+          >
+            Confirm
+          </Button>
         </Grid>
       </Grid>
-    </form>
+    </Grid>
   </Modal>
 );
 
