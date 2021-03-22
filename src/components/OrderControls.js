@@ -35,6 +35,7 @@ const OrderControls = () => {
     e.preventDefault();
     const ua = navigator.userAgent.toLowerCase();
     const isAndroid = ua.indexOf("android") > -1;
+    const isMobile = ua.indexOf("mobile") > -1;
 
     // TODO window.print() not functional on Android devices.
     if (isAndroid) {
@@ -45,6 +46,13 @@ const OrderControls = () => {
       });
     } else if (validate(invoice, showAlert)) {
       setPrinting(true);
+
+      // Mobile has security checks to prevent automated printing, so print now.
+      if (isMobile) {
+        setTimeout(() => {
+          printInvoice();
+        }, 50);
+      }
     }
   };
 
@@ -65,8 +73,11 @@ const OrderControls = () => {
   };
 
   React.useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase();
+    const isMobile = ua.indexOf("mobile") > -1;
+
     // Put printing in useEffect so the iframe is only rendered when desired.
-    if (printing) {
+    if (printing && !isMobile) {
       printInvoice();
       setPrinting(false);
     }
