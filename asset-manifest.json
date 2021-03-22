@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/warehouse-pos/static/css/main.35ae9247.chunk.css",
-    "main.js": "/warehouse-pos/static/js/main.1bd99881.chunk.js",
-    "main.js.map": "/warehouse-pos/static/js/main.1bd99881.chunk.js.map",
+    "main.css": "/warehouse-pos/static/css/main.d2fba0ac.chunk.css",
+    "main.js": "/warehouse-pos/static/js/main.329de2e6.chunk.js",
+    "main.js.map": "/warehouse-pos/static/js/main.329de2e6.chunk.js.map",
     "runtime-main.js": "/warehouse-pos/static/js/runtime-main.643f919b.js",
     "runtime-main.js.map": "/warehouse-pos/static/js/runtime-main.643f919b.js.map",
-    "static/js/2.c8e9a910.chunk.js": "/warehouse-pos/static/js/2.c8e9a910.chunk.js",
-    "static/js/2.c8e9a910.chunk.js.map": "/warehouse-pos/static/js/2.c8e9a910.chunk.js.map",
+    "static/js/2.3e6c81d5.chunk.js": "/warehouse-pos/static/js/2.3e6c81d5.chunk.js",
+    "static/js/2.3e6c81d5.chunk.js.map": "/warehouse-pos/static/js/2.3e6c81d5.chunk.js.map",
     "static/js/3.e9e56ac5.chunk.js": "/warehouse-pos/static/js/3.e9e56ac5.chunk.js",
     "static/js/3.e9e56ac5.chunk.js.map": "/warehouse-pos/static/js/3.e9e56ac5.chunk.js.map",
     "index.html": "/warehouse-pos/index.html",
-    "static/css/main.35ae9247.chunk.css.map": "/warehouse-pos/static/css/main.35ae9247.chunk.css.map",
-    "static/js/2.c8e9a910.chunk.js.LICENSE.txt": "/warehouse-pos/static/js/2.c8e9a910.chunk.js.LICENSE.txt"
+    "static/css/main.d2fba0ac.chunk.css.map": "/warehouse-pos/static/css/main.d2fba0ac.chunk.css.map",
+    "static/js/2.3e6c81d5.chunk.js.LICENSE.txt": "/warehouse-pos/static/js/2.3e6c81d5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.643f919b.js",
-    "static/js/2.c8e9a910.chunk.js",
-    "static/css/main.35ae9247.chunk.css",
-    "static/js/main.1bd99881.chunk.js"
+    "static/js/2.3e6c81d5.chunk.js",
+    "static/css/main.d2fba0ac.chunk.css",
+    "static/js/main.329de2e6.chunk.js"
   ]
 }
