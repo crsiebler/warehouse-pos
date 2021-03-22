@@ -6,12 +6,13 @@ import { useProduct } from "../context/productContext";
 import { useInvoiceDispatch } from "../context/invoiceContext";
 import { NONE_SKU } from "../utils/orderUtils";
 
-const ProductSelect = (props) => {
-  const { rowIndex } = props;
+const MenuItemMemo = React.memo(MenuItem);
+
+const ProductSelect = ({ rowIndex }) => {
+  const [productIndex, setProductIndex] = React.useState(0);
   const products = useProduct();
   const { hideTotal } = useDisplayDispatch();
   const { removeProduct, setProduct, resetQuantity } = useInvoiceDispatch();
-  const [productIndex, setProductIndex] = React.useState(0);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -27,8 +28,6 @@ const ProductSelect = (props) => {
     }
   };
 
-  console.log(`RENDERED: ProductSelect (${rowIndex})`);
-
   return (
     <Select
       variant="outlined"
@@ -37,9 +36,9 @@ const ProductSelect = (props) => {
       onChange={handleChange}
     >
       {products.map((product, index) => (
-        <MenuItem key={index} value={index}>
+        <MenuItemMemo key={index} value={index}>
           {product.sku}
-        </MenuItem>
+        </MenuItemMemo>
       ))}
     </Select>
   );
