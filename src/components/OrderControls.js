@@ -1,5 +1,7 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 import { useDisplayDispatch } from "../context/displayContext";
 import {
   useContractor,
@@ -9,14 +11,16 @@ import { useInvoice, useInvoiceDispatch } from "../context/invoiceContext";
 import { printInvoice, validate } from "../utils/orderUtils";
 import InvoiceDisplay from "./InvoiceDisplay";
 import OrderButton from "./OrderButton";
+import Modal from "./Modal";
 
 const OrderControls = () => {
+  const [printing, setPrinting] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
   const invoice = useInvoice();
   const { contractor } = useContractor();
   const { showTotal, hideTotal, showAlert, hideAlert } = useDisplayDispatch();
   const { closeContractor } = useContractorDispatch();
   const { closeInvoice } = useInvoiceDispatch();
-  const [printing, setPrinting] = React.useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +50,15 @@ const OrderControls = () => {
 
   const handleClose = (e) => {
     e.preventDefault();
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleConfirm = () => {
+    setModalOpen(false);
     hideTotal();
     closeContractor();
     closeInvoice();
@@ -61,7 +74,6 @@ const OrderControls = () => {
 
   return (
     <>
-      {printing && <InvoiceDisplay invoice={invoice} contractor={contractor} />}
       <Box display="flex" flexDirection="column" className="order__controls">
         <Box p={0.5}>
           <OrderButton onClick={handleSubmit}>Calculate</OrderButton>
@@ -77,6 +89,30 @@ const OrderControls = () => {
           </OrderButton>
         </Box>
       </Box>
+      {printing && <InvoiceDisplay invoice={invoice} contractor={contractor} />}
+      <Modal open={modalOpen} handleClose={handleModalClose}>
+        <Grid
+          container
+          direction="column"
+          className="modal"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item>
+            <Typography variant="h6">Are you sure?</Typography>
+          </Grid>
+          <Grid item container direction="row" spacing={2}>
+            <Grid item xs={6}>
+              <OrderButton color="default" onClick={handleModalClose}>
+                Cancel
+              </OrderButton>
+            </Grid>
+            <Grid item xs={6}>
+              <OrderButton onClick={handleConfirm}>Confirm</OrderButton>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Modal>
     </>
   );
 };

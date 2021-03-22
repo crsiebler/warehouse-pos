@@ -34,9 +34,9 @@
       &__button {
         width: 100%;
 
-        &:last-child {
-          flex-grow: 1;
-        }
+        // &:last-child {
+        //   flex-grow: 1;
+        // }
       }
     }
 
@@ -55,6 +55,19 @@
         min-width: 10ch;
       }
     }
+  }
+
+  .modal {
+    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: beige;
+    box-shadow: 10px 5px 5px black;
+    padding: 20px 40px 30px;
+    border-radius: 5px;
+    outline: none;
   }
 
   .red {

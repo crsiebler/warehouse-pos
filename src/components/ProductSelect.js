@@ -18,6 +18,7 @@ const ProductSelect = ({ rowIndex }) => {
     const { value } = e.target;
     const product = products[value];
     const data = { product, rowIndex };
+
     if (product.sku === NONE_SKU) {
       removeProduct(rowIndex);
     } else {
