@@ -1,31 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import MuiButton from "@material-ui/core/Button";
 
-const OrderButton = ({ type, variant, color, onClick, children }) => (
-  <Button
+const Button = ({ type, variant, color, onClick, children, ...rest }) => (
+  <MuiButton
     type={type}
     variant={variant}
     color={color}
-    className="controls__button"
     onClick={onClick}
+    {...rest}
   >
     {children}
-  </Button>
+  </MuiButton>
 );
 
-OrderButton.propTypes = {
+Button.propTypes = {
   type: PropTypes.string,
   variant: PropTypes.string,
   color: PropTypes.string,
   onClick: PropTypes.func,
 };
 
-OrderButton.defaultProps = {
-  type: "submit",
+Button.defaultProps = {
+  type: "button",
   variant: "contained",
-  color: "primary",
+  color: "default",
   onClick: () => {},
 };
 
-export default OrderButton;
+export default Button;

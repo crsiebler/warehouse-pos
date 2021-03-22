@@ -4,13 +4,13 @@ import MuiModal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
-const Modal = ({ children, open, handleClose }) => {
+const Modal = ({ children, open, onClose }) => {
   return (
     <MuiModal
       aria-labelledby="close-modal"
       aria-describedby="close-invoice-modal"
       open={open}
-      onClose={handleClose}
+      onClose={onClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
@@ -25,12 +25,12 @@ const Modal = ({ children, open, handleClose }) => {
 Modal.propTypes = {
   children: PropTypes.element,
   open: PropTypes.bool,
-  handleClose: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 Modal.defaultProps = {
   open: true,
-  handleClose: () => {},
+  onClose: () => {},
 };
 
 export default Modal;

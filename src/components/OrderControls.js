@@ -1,7 +1,5 @@
 import React from "react";
 import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { useDisplayDispatch } from "../context/displayContext";
 import {
   useContractor,
@@ -10,8 +8,8 @@ import {
 import { useInvoice, useInvoiceDispatch } from "../context/invoiceContext";
 import { printInvoice, validate } from "../utils/orderUtils";
 import InvoiceDisplay from "./InvoiceDisplay";
-import OrderButton from "./OrderButton";
-import Modal from "./Modal";
+import Button from "./Button";
+import ConfirmModal from "./ConfirmModal";
 
 const OrderControls = () => {
   const [printing, setPrinting] = React.useState(false);
@@ -51,7 +49,7 @@ const OrderControls = () => {
       if (isMobile) {
         setTimeout(() => {
           printInvoice();
-        }, 50);
+        }, 1000);
       }
     }
   };
@@ -86,45 +84,38 @@ const OrderControls = () => {
   return (
     <>
       <Box display="flex" flexDirection="column" className="controls">
-        <Box p={0.5}>
-          <OrderButton onClick={handleSubmit}>Calculate</OrderButton>
-        </Box>
-        <Box p={0.5}>
-          <OrderButton type="print" onClick={handlePrint}>
-            Print
-          </OrderButton>
-        </Box>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          className="controls__button"
+        >
+          Calculate
+        </Button>
+        <Button
+          type="print"
+          color="primary"
+          onClick={handlePrint}
+          className="controls__button"
+        >
+          Print
+        </Button>
         <Box flexGrow={1} />
-        <Box p={0.5}>
-          <OrderButton type="clear" color="secondary" onClick={handleClose}>
-            Close
-          </OrderButton>
-        </Box>
+        <Button
+          type="reset"
+          color="secondary"
+          onClick={handleClose}
+          className="controls__button"
+        >
+          Close
+        </Button>
       </Box>
       {printing && <InvoiceDisplay invoice={invoice} contractor={contractor} />}
-      <Modal open={modalOpen} handleClose={handleModalClose}>
-        <Grid
-          container
-          direction="column"
-          className="modal"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item>
-            <Typography variant="h6">Are you sure?</Typography>
-          </Grid>
-          <Grid item container direction="row" spacing={2}>
-            <Grid item xs={12} md={6}>
-              <OrderButton color="default" onClick={handleModalClose}>
-                Cancel
-              </OrderButton>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <OrderButton onClick={handleConfirm}>Confirm</OrderButton>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Modal>
+      <ConfirmModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        onConfirm={handleConfirm}
+      />
     </>
   );
 };
