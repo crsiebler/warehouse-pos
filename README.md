@@ -1,5 +1,4 @@
 # Warehouse Point-of-Sale
-<p align="center">:w
 
 [![Website crsiebler.github.io/warehouse-pos](https://img.shields.io/website-up-down-green-red/https/.svg)](https://crsiebler.github.io/warehouse-pos) [![MIT License](https://img.shields.io/github/license/crsiebler/warehouse-pos)](https://github.com/crsiebler/warehouse-pos/blob/master/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/crsiebler/warehouse-pos.svg?style=flat)]() [![Twitter Follow](https://img.shields.io/twitter/follow/CorySiebler.svg?style=social)](https://twitter.com/CorySiebler)  
 
