@@ -1,4 +1,8 @@
 # Warehouse Point-of-Sale
+<p align="center">:w
+
+[![Website crsiebler.github.io/warehouse-pos](https://img.shields.io/website-up-down-green-red/https/.svg)](https://crsiebler.github.io/warehouse-pos) [![MIT License](https://img.shields.io/github/license/crsiebler/warehouse-pos)](https://github.com/crsiebler/warehouse-pos/blob/master/LICENSE) [![GitHub last commit](https://img.shields.io/github/last-commit/crsiebler/warehouse-pos.svg?style=flat)]() [![Twitter Follow](https://img.shields.io/twitter/follow/CorySiebler.svg?style=social)](https://twitter.com/CorySiebler)  
+
 
 A mock application for a warehouse point-of-sale. This project uses [React.js](https://facebook.github.io/create-react-app/docs/getting-started), [Material-UI](https://material-ui.com/), [Hooks](https://reactjs.org/docs/hooks-intro.html), [Immer](https://immerjs.github.io/immer/) for context, and [JSON Server](https://github.com/typicode/json-server) to reflect a back-end RESTful service providing data to the front-end.
 
